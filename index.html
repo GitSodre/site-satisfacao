@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lucas teste</title>
+  <style>
+    body {
+      background-color: #1F2E57;
+      font-family: Times;
+    }
+
+    h1 {
+      text-align: center;
+      color: red;
+      font-size: 30px;
+      padding: 10px;
+      margin: 0 auto;
+      border: 5px solid black;
+      border-radius: 10px;
+      width: fit-content;
+      background-color: white;
+    }
+
+    .campo-label {
+      display: block;
+      text-align: center;
+      color: black;
+      font-size: 30px;
+      font-weight: bold;
+      -webkit-text-stroke: 0.2px white;
+      margin-top: 30px;
+    }
+
+    .campo-input {
+      font-size: 20px;
+      padding: 5px;
+      width: 300px;
+      margin-top: 10px;
+    }
+
+    .botao-enviar {
+      display: block;
+      margin: 30px auto;
+      font-size: 24px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Pesquisa de Satisfação - Laboratório Bittar</h1>
+
+  <label class="campo-label" for="numeroAtendimento">
+    Número de Atendimento:
+    <br>
+    <input type="text" id="numeroAtendimento" name="numeroAtendimento" required class="campo-input">
+  </label>
+
+  <button class="botao-enviar">Enviar</button>
+
+</body>
+</html>
