@@ -6,46 +6,65 @@
   <title>Lucas teste</title>
   <style>
     body {
-      background-color: rgba(31 , 45 , 86 , 60%);
-      font-family: Times;
+		background-color: rgba(31 , 45 , 86 , 60%);
+		font-family: Times;
     }
 
     h1 {
-      text-align: center;
-      color: red;
-      font-size: 30px;
-      padding: 10px;
-      margin: 0 auto;
-      border: 5px solid black;
-      border-radius: 10px;
-      width: fit-content;
-      background-color: white;
+		text-align: center;
+		color: rgba (31 , 45 , 86, 100%)
+		font-size: 30px;
+		padding: 10px;
+		margin: 0 auto;
+		border: 5px solid black;
+		border-radius: 10px;
+		width: fit-content;
+		background-color: white;
     }
 
-    .campo-label {
-      display: block;
-      text-align: center;
-      color: black;
-      font-size: 30px;
-      font-weight: bold;
-      -webkit-text-stroke: 0.2px white;
-      margin-top: 30px;
+    .numero {
+		display: block;
+		text-align: center;
+		color: black;
+		font-size: 30px;
+		font-weight: bold;
+		margin-top: 30px;
     }
 
     .campo-input {
-      font-size: 20px;
-      padding: 5px;
-      width: 300px;
-      margin-top: 10px;
+		font-size: 20px;
+		padding: 5px;
+		width: 300px;
+		margin-top: 10px;
+		border-radius: 5px;
+		border: 2px solid black
     }
 
     .botao-enviar {
-      display: block;
-      margin: 30px auto;
-      font-size: 24px;
-      padding: 10px 20px;
-      cursor: pointer;
+		display: block;
+		margin: 30px auto;
+		font-size: 20px;
+		padding: 10px 20px;
+		cursor: pointer;
     }
+	
+	.comentario {
+		display: block;
+		text-align: center;
+		color: black;
+		font-size: 30px;
+		font-weight: bold;
+		margin-top: 30px;
+		resize: none;
+    }
+	textarea {
+		resize: none;
+		width: 500px; 
+		height: 150px;
+		border-radius: 5px;
+		border: 2px solid black
+    }
+	
   </style>
 </head>
 <body>
@@ -53,12 +72,15 @@
   <h1>Pesquisa de Satisfação <br>
   Laboratório Bittar</h1>
 
-  <label class="campo-label" for="numeroAtendimento">
+  <label class="numero" for="numeroAtendimento">
     Número de Atendimento:
-    <br>
     <input type="text" id="numeroAtendimento" name="numeroAtendimento" required class="campo-input">
   </label>
-
+  
+  <label class="comentario" for="comentario">
+	Comentário:
+	<textarea id="comentario" name="comentario" rows="6" required></textarea>
+	</label>
   <button class="botao-enviar">Enviar</button>
 
 </body>
