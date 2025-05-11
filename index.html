@@ -7,6 +7,9 @@
   <style>
     body {
       background-color: #182752;
+      font-family: times;
+      margin: 0;
+      padding: 0;
     }
 
     .pesquisadesatisfação {
@@ -19,46 +22,63 @@
       border-radius: 10px;
       width: fit-content;
       background-color: white;
-	  box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%); /* X, Y, blur, cor */
+      box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%);
     }
 
-    .numero {
-      display: block;
-      text-align: center;
-	  margin: 0 auto;
-      color: black;
-      padding-bottom: 5px;
-      padding-top: 5px;
-	  padding-right: 208px;
-	  padding-left: 208px;
-	  font-size: 30px;
-      margin-top: 30px;
-      background-color: white;
-      border: 2px solid black;
-      border-radius: 5px;
-	  width: fit-content;
-	  box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%); /* X, Y, blur, cor */
-    }
-
-    .campo-input {
-      text-align: center;
-	  margin: 0 auto;
-	  display: block;
-	  font-size: 20px;
-      padding: 5px;
-      width: 200px;
-      margin-top: 10px;
-	  margin-bottom: 10px;
-      border-radius: 5px;
-      border: 2px solid black;
-	  box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%); /* X, Y, blur, cor */
+    .numero,
+.comentario,
+.titulo-avaliacao {
+  display: block;
+  text-align: center;
+  margin: 10px auto;
+  color: black;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  font-size: 30px;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 5px;
+  width: 700px; 
+  height: 45px;  
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%);
     }
 	
-	.campo-input::placeholder {
-	font-size: 12px;
-	color: #888;
-	text-align: center;
-	}
+	.campo-input {
+	  text-align: center;
+      margin: 10px auto;
+      display: block;
+      font-size: 20px;
+      padding-top: 5px;
+	  padding-bottom: 5px;
+      padding-left: 0px;
+	  padding-right: 0px;
+	  border-radius: 5px;
+      border: 2px solid black;
+      box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%);
+      width: 20%;
+      max-width: 500px;
+    }
+	
+    textarea {
+      text-align: center;
+      margin: 10px auto;
+      display: block;
+      font-size: 20px;
+      padding: 5px;
+      padding-left: 3px;
+	  padding-right: 3px;
+	  border-radius: 5px;
+      border: 2px solid black;
+      box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%);
+      width: 80%;
+      max-width: 500px;
+    }
+
+    .campo-input::placeholder,
+    textarea::placeholder {
+      font-size: 12px;
+      color: #888;
+    }
 
     .botao-enviar {
       display: block;
@@ -69,93 +89,83 @@
       border-radius: 50px;
     }
 
-    .comentario {
-      display: block;
+    .grupo-avaliacao {
       text-align: center;
-      margin: 10px auto 20px auto;
-      color: black;
-	  padding-bottom: 5px;
-      padding-top: 5px;
-	  padding-right: 285px;
-	  padding-left: 285px;
-      font-size: 30px;
-      background-color: white;
-      border-radius: 5px;
-      border: 2px solid black;
-	  width: fit-content;
-	  box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%); /* X, Y, blur, cor */
+      margin-top: 20px;
+      margin-bottom: 20px;
+      color: white;
+      font-size: 22px;
     }
 
-    textarea {
-      display: block;
-      margin: 0 auto;
-      resize: none;
-      width: 500px;
-      height: 170px;
-      border-radius: 5px;
-      border: 2px solid black;
-      font-size: 16px;
-	  box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%); /* X, Y, blur, cor */
-    }
-	
-	textarea::placeholder {
-	font-size: 12px;
-	color: #888;
-	}
-	
-	.titulo-avaliacao {
-		text-align: center;
-		margin: 0 auto;
-		font-size: 30px;
-		font-weight: none;
-		color: black;
-		padding-bottom: 5px;
-		padding-top: 5px;
-		padding-right: 220px;
-		padding-left: 220px;
-		background-color: white;
-		border-radius: 5px;
-        border: 2px solid black;
-		margin-bottom: 10px;
-		width: fit-content;
-		box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%); /* X, Y, blur, cor */
-	}
+    @media (max-width: 768px) {
+      .numero,
+      .comentario,
+      .titulo-avaliacao {
+        font-size: 24px;
+      }
 
-	.grupo-avaliacao {
-		text-align: center;
-		margin-top: 20px;
-		margin-bottom: 20px;
-		color: white;
-		font-size: 22px;
-	}
-	
+      .campo-input,
+      textarea {
+        width: 90%;
+        font-size: 18px;
+      }
+
+      .grupo-avaliacao {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .numero,
+      .comentario,
+      .titulo-avaliacao {
+        font-size: 20px;
+      }
+
+      .campo-input,
+      textarea {
+        width: 90%;
+        font-size: 16px;
+      }
+
+      .grupo-avaliacao {
+        font-size: 16px;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+
+      .botao-enviar {
+        font-size: 18px;
+        padding: 6px 12px;
+      }
+    }
   </style>
 </head>
 <body>
 
   <img src="imagens/bit01.png" alt="Logo Bittar" style="display: block; margin: 0px auto 5px auto; width: 170px;">
-	
+  
   <div class="pesquisadesatisfação"> 
-	<h1>Pesquisa de Satisfação</h1>
-	</div>
+    <h1>Pesquisa de Satisfação</h1>
+  </div>
 
   <label class="numero" for="numeroAtendimento">Número de Atendimento:</label>
-  
-  <input type="text" placeholder="(Somente números)" maxlength="13" required title="Somente números" pattern="[0-9]+" id="numeroAtendimento" name="numeroAtendimento" required class="campo-input">
+  <input type="text" placeholder="(Somente números)" maxlength="13" required title="Somente números" pattern="[0-9]+" id="numeroAtendimento" name="numeroAtendimento" class="campo-input">
 
-<p class="titulo-avaliacao">Avalie seu atendimento:</p>
-<div class="grupo-avaliacao">
-  <label><input type="radio" name="nota" value="0" required> 0 </label>
-  <label><input type="radio" name="nota" value="1"> 1 </label>
-  <label><input type="radio" name="nota" value="2"> 2 </label>
-  <label><input type="radio" name="nota" value="3"> 3 </label>
-  <label><input type="radio" name="nota" value="4"> 4 </label>
-  <label><input type="radio" name="nota" value="5"> 5 </label>
-</div>
+  <p class="titulo-avaliacao">Avalie seu atendimento:</p>
+  <div class="grupo-avaliacao">
+    <label><input type="radio" name="nota" value="0" required> 0 </label>
+    <label><input type="radio" name="nota" value="1"> 1 </label>
+    <label><input type="radio" name="nota" value="2"> 2 </label>
+    <label><input type="radio" name="nota" value="3"> 3 </label>
+    <label><input type="radio" name="nota" value="4"> 4 </label>
+    <label><input type="radio" name="nota" value="5"> 5 </label>
+  </div>
 
   <label class="comentario" for="comentario">Comentário:</label>
-  
-  <textarea id="comentario" placeholder="Digite seu comentário (máximo 400 caracteres)" required title="Digite seu Comentário" name="comentario" maxlength="400" rows="6" required></textarea>
+  <textarea id="comentario" placeholder="Digite seu comentário (máximo 400 caracteres)" required title="Digite seu Comentário" name="comentario" maxlength="400" rows="6"></textarea>
 
   <button class="botao-enviar">Enviar</button>
 
