@@ -29,7 +29,7 @@
     .comentario,
     .titulo-avaliacao {
       display: block;
-	  font-weight: bold;
+      font-weight: bold;
       text-align: center;
       margin: 20px auto;
       color: black;
@@ -62,7 +62,7 @@
     }
 
     textarea {
-      text-align: center;
+      text-align: left;
       margin: 10px auto;
       display: block;
       font-size: 20px;
@@ -78,7 +78,7 @@
 
     .campo-input::placeholder,
     textarea::placeholder {
-      font-size: 12px;
+      font-size: 20px;
       color: #888;
     }
 
@@ -178,10 +178,10 @@
     <label><input type="radio" name="nota" value="3"> Ótimo </label>
   </div>
 
-  <label class="comentario" for="comentario">Deixe seu comentário e sugestões:</label>
-  <textarea id="comentario" placeholder="Digite seu comentário (máximo 400 caracteres)" required title="Digite seu Comentário" name="comentario" maxlength="400" rows="6"></textarea>
+  <label class="comentario" for="comentario">Deixe seus comentários e sugestões:</label>
+  <textarea id="comentario" placeholder="Digite seu comentário (máximo 400 caracteres)" title="Digite seu Comentário" name="comentario" maxlength="400" rows="6"></textarea>
 
-  <button class="botao-enviar">Enviar</button>
+  <button class="botao-enviar" onclick="enviarPesquisa()">Enviar</button>
 
 <script>
   document.getElementById("numeroAtendimento").addEventListener("input", function () {
@@ -195,6 +195,23 @@
 
     this.value = valor;
   });
+
+  function enviarPesquisa() {
+    // Validação básica dos campos
+    const numeroAtendimento = document.getElementById('numeroAtendimento').value;
+    const notaSelecionada = document.querySelector('input[name="nota"]:checked');
+    
+    if (!numeroAtendimento || !notaSelecionada) {
+      alert('Por favor, preencha todos os campos obrigatórios!');
+      return;
+    }
+    
+    // Redireciona para a página de agradecimento
+    window.location.href = "agradecimento.html";
+    
+    // Em uma aplicação real, você enviaria os dados para um servidor aqui
+    // antes de redirecionar
+  }
 </script>
 
 </body>
