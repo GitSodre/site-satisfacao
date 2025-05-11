@@ -7,16 +7,15 @@
   <style>
     body {
       background-color: #182752;
-      font-family: Times;
     }
 
-    h1 {
+    .pesquisadesatisfação {
       text-align: center;
       color: black;
-      font-size: 30px;
+      font-size: 17px;
       padding: 10px;
       margin: 10px auto 20px auto;
-      border: 5px solid black;
+      border: 2px solid black;
       border-radius: 10px;
       width: fit-content;
       background-color: white;
@@ -25,22 +24,29 @@
     .numero {
       display: block;
       text-align: center;
+	  margin: 0 auto;
       color: black;
       padding-bottom: 5px;
-      font-size: 30px;
+      padding-top: 5px;
+	  padding-right: 208px;
+	  padding-left: 208px;
+	  font-size: 30px;
       margin-top: 30px;
       background-color: white;
       border: 2px solid black;
       border-radius: 5px;
+	  width: fit-content;
     }
 
     .campo-input {
-      margin: 0 auto;
+      text-align: center;
+	  margin: 0 auto;
 	  display: block;
 	  font-size: 20px;
       padding: 5px;
-      width: 300px;
+      width: 200px;
       margin-top: 10px;
+	  margin-bottom: 10px;
       border-radius: 5px;
       border: 2px solid black;
     }
@@ -54,20 +60,20 @@
       border-radius: 50px;
     }
 
-    table {
-      margin: 30px auto;
-      border-collapse: collapse;
-    }
-
     .comentario {
       display: block;
       text-align: center;
       margin: 10px auto 20px auto;
       color: black;
+	  padding-bottom: 5px;
+      padding-top: 5px;
+	  padding-right: 280px;
+	  padding-left: 280px;
       font-size: 30px;
       background-color: white;
       border-radius: 5px;
       border: 2px solid black;
+	  width: fit-content;
     }
 
     textarea {
@@ -75,27 +81,78 @@
       margin: 0 auto;
       resize: none;
       width: 500px;
-      height: 150px;
+      height: 170px;
       border-radius: 5px;
       border: 2px solid black;
       font-size: 16px;
     }
+	.titulo-avaliacao {
+		text-align: center;
+		margin: 0 auto;
+		font-size: 30px;
+		font-weight: none;
+		color: black;
+		padding-bottom: 5px;
+		padding-top: 5px;
+		padding-right: 220px;
+		padding-left: 220px;
+		background-color: white;
+		border-radius: 5px;
+        border: 2px solid black;
+		margin-bottom: 10px;
+		width: fit-content;
+	}
+
+	.grupo-avaliacao {
+		text-align: center;
+		margin-bottom: 20px;
+		color: white;
+		font-size: 22px;
+	}
+	
   </style>
 </head>
 <body>
 
   <img src="imagens/bit01.png" alt="Logo Bittar" style="display: block; margin: 0px auto 5px auto; width: 170px;">
 
-  <h1>Pesquisa de Satisfação</h1>
+  <div class="pesquisadesatisfação"> 
+	<h1>Pesquisa de Satisfação</h1>
+	</div>
 
   <label class="numero" for="numeroAtendimento">Número de Atendimento:</label>
   
-  <input type="text" id="numeroAtendimento" name="numeroAtendimento" required class="campo-input"></label>
+  <input type="text" maxlength="13" required title="Somente números" pattern="[0-9]+" id="numeroAtendimento" name="numeroAtendimento" required class="campo-input">
+
+<p class="titulo-avaliacao">Avalie seu atendimento:</p>
+<div class="grupo-avaliacao">
+  <label><input type="radio" name="nota" value="0" required> 0 </label>
+  <label><input type="radio" name="nota" value="1"> 1 </label>
+  <label><input type="radio" name="nota" value="2"> 2 </label>
+  <label><input type="radio" name="nota" value="3"> 3 </label>
+  <label><input type="radio" name="nota" value="4"> 4 </label>
+  <label><input type="radio" name="nota" value="5"> 5 </label>
+</div>
 
   <label class="comentario" for="comentario">Comentário:</label>
-  <textarea id="comentario" name="comentario" rows="6" required></textarea>
+  
+  <textarea id="comentario" placeholder="Digite seu comentário (máximo 400 caracteres)" required title="Digite seu Comentário" name="comentario" maxlength="400" rows="6" required></textarea>
 
   <button class="botao-enviar">Enviar</button>
+
+<script>
+  document.getElementById("numeroAtendimento").addEventListener("input", function () {
+    let valor = this.value.replace(/\D/g, "");
+
+    if (valor.length > 3 && valor.length <= 8) {
+      valor = valor.replace(/(\d{3})(\d+)/, "$1-$2");
+    } else if (valor.length > 8) {
+      valor = valor.replace(/(\d{3})(\d{5})(\d+)/, "$1-$2-$3");
+    }
+
+    this.value = valor;
+  });
+</script>
 
 </body>
 </html>
