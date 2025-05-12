@@ -239,7 +239,7 @@
   <button class="botao-enviar" onclick="enviarPesquisa()">Enviar</button>
 
 <script>
-  // Formatação do número de atendimento
+  // Formatação do número de atendimento (mantida igual)
   document.getElementById("numeroAtendimento").addEventListener("input", function () {
     let valor = this.value.replace(/\D/g, "");
     let formatado = "";
@@ -257,47 +257,45 @@
     this.value = formatado;
   });
 
-  // Função para enviar dados ao Google Sheets
-async function enviarParaGoogleSheets(dados) {
-  const scriptUrl = 'https://script.google.com/macros/s/AKfycbxuTZPkA2znf9mROvmXFuGf67gDME-TTHeU68E2oI7oKboYSnzHwFGSV5zq9FA-IPZ73Q/exec';
-  
-  try {
-    // Convertendo para FormData que é mais compatível com GAS
-    const formData = new URLSearchParams();
-    for (const key in dados) {
-      formData.append(key, dados[key]);
+  // Função para enviar dados ao Google Sheets (mantida igual)
+  async function enviarParaGoogleSheets(dados) {
+    const scriptUrl = 'https://script.google.com/macros/s/AKfycbxuTZPkA2znf9mROvmXFuGf67gDME-TTHeU68E2oI7oKboYSnzHwFGSV5zq9FA-IPZ73Q/exec';
+    
+    try {
+      const formData = new URLSearchParams();
+      for (const key in dados) {
+        formData.append(key, dados[key]);
+      }
+      
+      const response = await fetch(scriptUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: formData.toString()
+      });
+      
+      const result = await response.json();
+      
+      if (result.status === 'success') {
+        window.location.href = "agradecimento.html";
+      } else {
+        throw new Error(result.message || 'Falha no envio');
+      }
+    } catch (error) {
+      console.error('Erro:', error);
+      alert('Ocorreu um erro ao enviar: ' + error.message);
+      const botao = document.querySelector('.botao-enviar');
+      botao.disabled = false;
+      botao.textContent = 'Enviar';
     }
-    
-    const response = await fetch(scriptUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: formData.toString()
-    });
-    
-    const result = await response.json();
-    
-    if (result.status === 'success') {
-      window.location.href = "agradecimento.html";
-    } else {
-      throw new Error(result.message || 'Falha no envio');
-    }
-  } catch (error) {
-    console.error('Erro:', error);
-    alert('Ocorreu um erro ao enviar: ' + error.message);
-    const botao = document.querySelector('.botao-enviar');
-    botao.disabled = false;
-    botao.textContent = 'Enviar';
   }
-}
 
-  // Função principal de envio da pesquisa
+  // Função principal de envio da pesquisa (com ajustes)
   function enviarPesquisa() {
-    // Validação do número de atendimento
+    // Validação do número de atendimento (agora mantendo os hífens)
     const numeroAtendimento = document.getElementById('numeroAtendimento').value;
-    const numeroLimpo = numeroAtendimento.replace(/\D/g, "");
-    const tamanhoValido = numeroLimpo.length === 10 || numeroLimpo.length === 11;
+    const tamanhoValido = numeroAtendimento.length === 12 || numeroAtendimento.length === 13; // Conta com hífens
     
     if (!tamanhoValido) {
       alert('Por favor, informe um número de atendimento válido (formato XXX-XXXXX-XX ou XXX-XXXXX-XXX)!');
@@ -305,7 +303,7 @@ async function enviarParaGoogleSheets(dados) {
       return;
     }
     
-    // Validação das perguntas
+    // Validação das perguntas (mantida igual)
     const perguntas = [
       {name: 'nota1', text: 'avaliação do atendimento da recepção'},
       {name: 'nota2', text: 'tempo de espera para o atendimento'},
@@ -322,19 +320,19 @@ async function enviarParaGoogleSheets(dados) {
       }
     }
     
-    // Prepara os dados para envio
+    // Prepara os dados para envio (agora com hífens)
     const dados = {
-      numeroAtendimento: numeroLimpo,
+      numeroAtendimento: numeroAtendimento, // Envia com formatação original
       comentario: document.getElementById('comentario').value,
       timestamp: new Date().toISOString()
     };
 
-    // Adiciona as respostas das perguntas
+    // Adiciona as respostas das perguntas (mantida igual)
     perguntas.forEach(p => {
       dados[p.name] = document.querySelector(`input[name="${p.name}"]:checked`).value;
     });
     
-    // Feedback visual durante o envio
+    // Feedback visual durante o envio (mantido igual)
     const botao = document.querySelector('.botao-enviar');
     botao.disabled = true;
     botao.textContent = 'Enviando...';
