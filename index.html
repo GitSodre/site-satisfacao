@@ -106,7 +106,7 @@
       box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%);
     }
 	.botao-enviar:hover {
-		background-color: #182752;
+		background-color: #004884;
 		color: white;
 		border: 2px solid white;
 		transform: scale(1.05);
@@ -175,7 +175,7 @@
     font-size: 18px;
     padding: 8px 16px;
 	}
-
+	
   </style>
 </head>
 <body>
@@ -191,50 +191,50 @@
 
   <p class="titulo-avaliacao">Como você avalia o atendimento da recepção?</p>
   <div class="grupo-avaliacao">
-    <label><input type="radio" name="nota" value="0" required> Ruim </label>
-    <label><input type="radio" name="nota" value="1"> Regular </label>
-    <label><input type="radio" name="nota" value="2"> Bom </label>
-    <label><input type="radio" name="nota" value="3"> Ótimo </label>
+    <label><input type="radio" name="nota1" value="0" required> Ruim </label>
+    <label><input type="radio" name="nota1" value="1"> Regular </label>
+    <label><input type="radio" name="nota1" value="2"> Bom </label>
+    <label><input type="radio" name="nota1" value="3"> Ótimo </label>
   </div>
   
   <p class="titulo-avaliacao">O tempo de espera para o atendimento foi:</p>
   <div class="grupo-avaliacao">
-    <label><input type="radio" name="nota" value="0" required> Demorado </label>
-    <label><input type="radio" name="nota" value="1"> Razoável </label>
-    <label><input type="radio" name="nota" value="2"> Muito Rápido </label>
+    <label><input type="radio" name="nota2" value="0" required> Demorado </label>
+    <label><input type="radio" name="nota2" value="1"> Razoável </label>
+    <label><input type="radio" name="nota2" value="2"> Muito Rápido </label>
   </div>
   
   <p class="titulo-avaliacao">Como você avalia o atendimento do técnico coletor</p>
   <div class="grupo-avaliacao">
-    <label><input type="radio" name="nota" value="0" required> Ruim </label>
-    <label><input type="radio" name="nota" value="1"> Regular </label>
-    <label><input type="radio" name="nota" value="2"> Bom </label>
-    <label><input type="radio" name="nota" value="3"> Ótimo </label>
+    <label><input type="radio" name="nota3" value="0" required> Ruim </label>
+    <label><input type="radio" name="nota3" value="1"> Regular </label>
+    <label><input type="radio" name="nota3" value="2"> Bom </label>
+    <label><input type="radio" name="nota3" value="3"> Ótimo </label>
   </div>
   
   <p class="titulo-avaliacao">A coleta de exames foi feita de forma confortável?</p>
   <div class="grupo-avaliacao">
-    <label><input type="radio" name="nota" value="0" required> Não </label>
-    <label><input type="radio" name="nota" value="1"> Parcialmente </label>
-    <label><input type="radio" name="nota" value="2"> Sim </label>
+    <label><input type="radio" name="nota4" value="0" required> Não </label>
+    <label><input type="radio" name="nota4" value="1"> Parcialmente </label>
+    <label><input type="radio" name="nota4" value="2"> Sim </label>
   </div>
   
   <p class="titulo-avaliacao">Como você avalia nossas instalaçoes?</p>
   <div class="grupo-avaliacao">
-    <label><input type="radio" name="nota" value="0" required> Ruim </label>
-    <label><input type="radio" name="nota" value="1"> Regular </label>
-    <label><input type="radio" name="nota" value="2"> Bom </label>
-    <label><input type="radio" name="nota" value="3"> Ótimo </label>
+    <label><input type="radio" name="nota5" value="0" required> Ruim </label>
+    <label><input type="radio" name="nota5" value="1"> Regular </label>
+    <label><input type="radio" name="nota5" value="2"> Bom </label>
+    <label><input type="radio" name="nota5" value="3"> Ótimo </label>
   </div>
   
   <p class="titulo-avaliacao">De 0 a 5, você indicaria o Laboratório para outras pessoas?</p>
   <div class="grupo-avaliacao">
-    <label><input type="radio" name="nota" value="0" required> 0 </label>
-    <label><input type="radio" name="nota" value="1"> 1 </label>
-    <label><input type="radio" name="nota" value="2"> 2 </label>
-	<label><input type="radio" name="nota" value="3"> 3 </label>
-	<label><input type="radio" name="nota" value="4"> 4 </label>
-	<label><input type="radio" name="nota" value="5"> 5 </label>
+    <label><input type="radio" name="nota6" value="0" required> 0 </label>
+    <label><input type="radio" name="nota6" value="1"> 1 </label>
+    <label><input type="radio" name="nota6" value="2"> 2 </label>
+	<label><input type="radio" name="nota6" value="3"> 3 </label>
+	<label><input type="radio" name="nota6" value="4"> 4 </label>
+	<label><input type="radio" name="nota6" value="5"> 5 </label>
   </div>
   
 
@@ -245,32 +245,76 @@
 
 <script>
   document.getElementById("numeroAtendimento").addEventListener("input", function () {
+    // Remove tudo que não é dígito
     let valor = this.value.replace(/\D/g, "");
-
-    if (valor.length > 3 && valor.length <= 8) {
-      valor = valor.replace(/(\d{3})(\d+)/, "$1-$2");
-    } else if (valor.length > 8) {
-      valor = valor.replace(/(\d{3})(\d{5})(\d+)/, "$1-$2-$3");
+    let formatado = "";
+    
+    if (valor.length > 0) {
+      // Sempre coloca os primeiros 3 dígitos
+      formatado = valor.substring(0, 3);
+      
+      // Adiciona o primeiro hífen após 3 dígitos
+      if (valor.length > 3) {
+        formatado += "-" + valor.substring(3, 8);
+      }
+      
+      // Adiciona o segundo hífen após 8 dígitos
+      if (valor.length > 8) {
+        // Aceita 2 ou 3 dígitos no final (10 ou 11 dígitos no total)
+        formatado += "-" + valor.substring(8, Math.min(valor.length, 11));
+      }
     }
-
-    this.value = valor;
+    
+    this.value = formatado;
   });
 
   function enviarPesquisa() {
-    // Validação básica dos campos
+    // Validação do número de atendimento (10 ou 11 dígitos)
     const numeroAtendimento = document.getElementById('numeroAtendimento').value;
-    const notaSelecionada = document.querySelector('input[name="nota"]:checked');
+    const numeroLimpo = numeroAtendimento.replace(/\D/g, "");
+    const tamanhoValido = numeroLimpo.length === 10 || numeroLimpo.length === 11;
     
-    if (!numeroAtendimento || !notaSelecionada) {
-      alert('Por favor, preencha todos os campos obrigatórios!(*)');
+    if (!tamanhoValido) {
+      alert('Por favor, informe um número de atendimento válido (formato XXX-XXXXX-XX ou XXX-XXXXX-XXX)!');
+      document.getElementById('numeroAtendimento').focus();
       return;
     }
     
-    // Redireciona para a página de agradecimento
-    window.location.href = "agradecimento.html";
+    // Restante do código permanece igual...
+    const perguntas = [
+      {name: 'nota1', text: 'avaliação do atendimento da recepção'},
+      {name: 'nota2', text: 'tempo de espera para o atendimento'},
+      {name: 'nota3', text: 'avaliação do técnico coletor'},
+      {name: 'nota4', text: 'conforto durante a coleta de exames'},
+      {name: 'nota5', text: 'avaliação das instalações'},
+      {name: 'nota6', text: 'indicação do laboratório'}
+    ];
     
-    // Em uma aplicação real, você enviaria os dados para um servidor aqui
-    // antes de redirecionar
+    for (const pergunta of perguntas) {
+      if (!document.querySelector(`input[name="${pergunta.name}"]:checked`)) {
+        alert(`Por favor, responda sobre: ${pergunta.text}!`);
+        return;
+      }
+    }
+    
+    const dados = {
+      numeroAtendimento: numeroLimpo,
+      comentario: document.getElementById('comentario').value
+    };
+    
+    perguntas.forEach(p => {
+      dados[p.name] = document.querySelector(`input[name="${p.name}"]:checked`).value;
+    });
+    
+    console.log('Dados coletados:', dados);
+    
+    const botao = document.querySelector('.botao-enviar');
+    botao.disabled = true;
+    botao.textContent = 'Enviando...';
+    
+    setTimeout(() => {
+      window.location.href = "agradecimento.html";
+    }, 1500);
   }
 </script>
 
