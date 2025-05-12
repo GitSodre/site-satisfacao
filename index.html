@@ -26,7 +26,7 @@
     }
 
     .numero,
-    .comentario,
+	.comentario,
     .titulo-avaliacao {
       display: block;
       font-weight: bold;
@@ -45,8 +45,32 @@
       box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%);
       box-sizing: border-box;
     }
-    
-    .numero::after,
+	
+	.unidadeAtendimento{
+      display: block;
+      font-weight: bold;
+      text-align: center;
+      margin: 20px auto;
+      color: black;
+      padding: 10px 5px 5px 5px;
+      font-size: 30px;
+      background-color: #bcbdbf;
+      border: 2px solid #888;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 700px;
+      height: auto;
+      min-height: 45px;
+      box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%);
+      box-sizing: border-box;
+    }
+	
+	.unidadeAtendimento::after {
+      content: "*";
+      color: red;
+      margin-left: 4px;
+    }
+	
     .titulo-avaliacao::after {
       content: "*";
       color: red;
@@ -126,6 +150,71 @@
       margin: 0 5px;
       white-space: nowrap;
     }
+	
+	/* Estilo exclusivo para o select */
+.select-estilizado {
+  display: block;
+  margin: 10px auto;
+  font-size: 22px;
+  text-align: center;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 2px solid #888;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%);
+  width: 90%;
+  max-width: 700px;
+  height: 50px;
+  box-sizing: border-box;
+  background-color: white;
+  color: black;
+  font-family: times;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000000'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 20px;
+  cursor: pointer;
+}
+
+/* Estilo para o hover */
+.select-estilizado:hover {
+  border-color: #004884;
+}
+
+/* Estilo quando em foco */
+.select-estilizado:focus {
+  outline: none;
+  border-color: #004884;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%);
+}
+
+/* Estilo das opções */
+.select-estilizado option {
+  background-color: white;
+  color: black;
+  font-size: 22px;
+  padding: 10px;
+}
+
+/* Media Queries para responsividade */
+@media (max-width: 768px) {
+  .select-estilizado {
+    font-size: 18px;
+    padding: 10px 12px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  .select-estilizado {
+    font-size: 16px;
+    padding: 8px 10px;
+    height: 40px;
+    background-size: 16px;
+  }
+}
 
     @media (max-width: 768px) {
       .numero,
@@ -147,7 +236,8 @@
 
     @media (max-width: 480px) {
       .numero,
-      .comentario,
+      .unidadedeatendimento,
+	  .comentario,
       .titulo-avaliacao {
         font-size: 20px;
         padding: 8px 5px;
@@ -183,8 +273,24 @@
   </div>
 
   <label class="numero" for="numeroAtendimento">Número de Atendimento:</label>
-  <input type="text" placeholder="(Somente números)" maxlength="13" required title="Somente números" pattern="[0-9]+" id="numeroAtendimento" name="numeroAtendimento" class="campo-input">
-
+  <input type="text" placeholder="(Somente números)" maxlength="13" title="Somente números" pattern="[0-9]+" id="numeroAtendimento" name="numeroAtendimento" class="campo-input">
+  
+<label class="unidadeAtendimento" for="unidadeAtendimento">Unidade de Atendimento:</label> 
+<select name="unidade" id="unidadeAtendimento" class="select-estilizado" required>
+  <option value="" disabled selected>Selecione sua unidade</option>
+  <option value="Centro Niterói">Centro Niterói</option>
+  <option value="Shopping Icaraí">Shopping Icaraí</option>
+  <option value="Tavares de Macedo">Tavares de Macedo</option>
+  <option value="São Francisco">São Francisco</option>
+  <option value="Centro São Gonçalo">Centro São Gonçalo</option>
+  <option value="Alcantara I">Alcantara I</option>
+  <option value="Alcantara II">Alcantara II</option>
+  <option value="Roberto Silveira">Roberto Silveira</option>
+  <option value="Itaipu Multicenter">Itaipu Multicenter</option>
+  <option value="Ingá">Ingá</option>
+  <option value="Gavião Peixoto">Gavião Peixoto</option>
+</select>
+	
   <p class="titulo-avaliacao">Como você avalia o atendimento da recepção?</p>
   <div class="grupo-avaliacao">
     <label><input type="radio" name="nota1" value="0" required> Ruim </label>
@@ -239,8 +345,23 @@
   <button class="botao-enviar" onclick="enviarPesquisa()">Enviar</button>
 
 <script>
-  // Formatação do número de atendimento (mantida igual)
-  document.getElementById("numeroAtendimento").addEventListener("input", function () {
+  // Mapeamento dos códigos de unidade
+  const unidadesMap = {
+    '001': 'Centro Niterói',
+    '002': 'Shopping Icaraí',
+    '003': 'Tavares de Macedo',
+    '004': 'São Francisco',
+    '005': 'Centro São Gonçalo',
+    '006': 'Alcantara I',
+    '126': 'Alcantara II',
+    '061': 'Roberto Silveira',
+    '066': 'Itaipu Multicenter',
+    '125': 'Ingá',
+    '116': 'Gavião Peixoto'
+  };
+
+  // Formatação do número de atendimento e auto-seleção da unidade
+  document.getElementById("numeroAtendimento").addEventListener("input", function() {
     let valor = this.value.replace(/\D/g, "");
     let formatado = "";
     
@@ -252,12 +373,24 @@
       if (valor.length > 8) {
         formatado += "-" + valor.substring(8, Math.min(valor.length, 11));
       }
+      
+      // Auto-selecionar unidade se código for reconhecido
+      const codigoUnidade = valor.substring(0, 3);
+      if (unidadesMap[codigoUnidade]) {
+        const selectUnidade = document.getElementById('unidadeAtendimento');
+        for (let i = 0; i < selectUnidade.options.length; i++) {
+          if (selectUnidade.options[i].value === unidadesMap[codigoUnidade]) {
+            selectUnidade.selectedIndex = i;
+            break;
+          }
+        }
+      }
     }
     
     this.value = formatado;
   });
 
-  // Função para enviar dados ao Google Sheets (mantida igual)
+  // Função para enviar dados ao Google Sheets
   async function enviarParaGoogleSheets(dados) {
     const scriptUrl = 'https://script.google.com/macros/s/AKfycbxuTZPkA2znf9mROvmXFuGf67gDME-TTHeU68E2oI7oKboYSnzHwFGSV5zq9FA-IPZ73Q/exec';
     
@@ -291,19 +424,31 @@
     }
   }
 
-  // Função principal de envio da pesquisa (com ajustes)
+  // Função principal de envio da pesquisa
   function enviarPesquisa() {
-    // Validação do número de atendimento (agora mantendo os hífens)
+    // Validação do número de atendimento (se preenchido)
     const numeroAtendimento = document.getElementById('numeroAtendimento').value;
-    const tamanhoValido = numeroAtendimento.length === 12 || numeroAtendimento.length === 13; // Conta com hífens
     
-    if (!tamanhoValido) {
-      alert('Por favor, informe um número de atendimento válido (formato XXX-XXXXX-XX ou XXX-XXXXX-XXX)!');
-      document.getElementById('numeroAtendimento').focus();
+    if (numeroAtendimento) {
+      const formatoValido = /^\d{3}-\d{5}-\d{1,3}$/.test(numeroAtendimento);
+      const tamanhoValido = numeroAtendimento.length >= 11 && numeroAtendimento.length <= 13;
+      
+      if (!formatoValido || !tamanhoValido) {
+        alert('O número de atendimento informado não é válido (formatos aceitos: XXX-XXXXX-X, XXX-XXXXX-XX ou XXX-XXXXX-XXX)!');
+        document.getElementById('numeroAtendimento').focus();
+        return;
+      }
+    }
+    
+    // Validação obrigatória da unidade de atendimento
+    const unidadeAtendimento = document.getElementById('unidadeAtendimento').value;
+    if (!unidadeAtendimento) {
+      alert('Por favor, selecione a unidade de atendimento!');
+      document.getElementById('unidadeAtendimento').focus();
       return;
     }
     
-    // Validação das perguntas (mantida igual)
+    // Validação das perguntas
     const perguntas = [
       {name: 'nota1', text: 'avaliação do atendimento da recepção'},
       {name: 'nota2', text: 'tempo de espera para o atendimento'},
@@ -320,19 +465,20 @@
       }
     }
     
-    // Prepara os dados para envio (agora com hífens)
+    // Prepara os dados para envio
     const dados = {
-      numeroAtendimento: numeroAtendimento, // Envia com formatação original
+      numeroAtendimento: numeroAtendimento || 'Não informado',
+      unidadeAtendimento: unidadeAtendimento,
       comentario: document.getElementById('comentario').value,
       timestamp: new Date().toISOString()
     };
 
-    // Adiciona as respostas das perguntas (mantida igual)
+    // Adiciona as respostas das perguntas
     perguntas.forEach(p => {
       dados[p.name] = document.querySelector(`input[name="${p.name}"]:checked`).value;
     });
     
-    // Feedback visual durante o envio (mantido igual)
+    // Feedback visual durante o envio
     const botao = document.querySelector('.botao-enviar');
     botao.disabled = true;
     botao.textContent = 'Enviando...';
