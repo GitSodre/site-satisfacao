@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lucas teste</title>
+  <title>Pesquisa de Satisfação - Laboratório Bittar</title>
   <style>
     body {
       background-color: #004884;
@@ -45,19 +45,14 @@
       box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%);
       box-sizing: border-box;
     }
-	
-	.numero::after {
-	  content: "*";
-	  color: red;
-	  margin-left: 4px;
-	}
-	
-	.titulo-avaliacao::after {
-	  content: "*";
-	  color: red;
-	  margin-left: 4px;
-	}
-	
+    
+    .numero::after,
+    .titulo-avaliacao::after {
+      content: "*";
+      color: red;
+      margin-left: 4px;
+    }
+    
     .campo-input {
       text-align: center;
       margin: 10px auto;
@@ -67,7 +62,7 @@
       border-radius: 8px;
       border: 2px solid #888;
       box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%);
-      width: 100;
+      width: 100%;
       max-width: 700px;
       height: 50px;
       box-sizing: border-box;
@@ -104,14 +99,15 @@
       background-color: white;
       border: 2px solid black;
       box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%);
+      transition: all 0.3s ease;
     }
-	.botao-enviar:hover {
-		background-color: #004884;
-		color: white;
-		border: 2px solid white;
-		transform: scale(1.05);
-		transition: all 0.3s ease;
-	}
+    
+    .botao-enviar:hover {
+      background-color: #004884;
+      color: white;
+      border: 2px solid white;
+      transform: scale(1.05);
+    }
 
     .grupo-avaliacao {
       text-align: center;
@@ -171,11 +167,11 @@
         font-size: 22px;
       }
 
-      .botao-enviar {  /* Correto */
-    font-size: 18px;
-    padding: 8px 16px;
-	}
-	
+      .botao-enviar {
+        font-size: 18px;
+        padding: 8px 16px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -232,35 +228,28 @@
     <label><input type="radio" name="nota6" value="0" required> 0 </label>
     <label><input type="radio" name="nota6" value="1"> 1 </label>
     <label><input type="radio" name="nota6" value="2"> 2 </label>
-	<label><input type="radio" name="nota6" value="3"> 3 </label>
-	<label><input type="radio" name="nota6" value="4"> 4 </label>
-	<label><input type="radio" name="nota6" value="5"> 5 </label>
+    <label><input type="radio" name="nota6" value="3"> 3 </label>
+    <label><input type="radio" name="nota6" value="4"> 4 </label>
+    <label><input type="radio" name="nota6" value="5"> 5 </label>
   </div>
   
-
   <label class="comentario" for="comentario">Deixe seus comentários e sugestões:</label>
   <textarea id="comentario" placeholder="Digite seu comentário (máximo 400 caracteres)" title="Digite seu Comentário" name="comentario" maxlength="400" rows="6"></textarea>
 
   <button class="botao-enviar" onclick="enviarPesquisa()">Enviar</button>
 
 <script>
+  // Formatação do número de atendimento
   document.getElementById("numeroAtendimento").addEventListener("input", function () {
-    // Remove tudo que não é dígito
     let valor = this.value.replace(/\D/g, "");
     let formatado = "";
     
     if (valor.length > 0) {
-      // Sempre coloca os primeiros 3 dígitos
       formatado = valor.substring(0, 3);
-      
-      // Adiciona o primeiro hífen após 3 dígitos
       if (valor.length > 3) {
         formatado += "-" + valor.substring(3, 8);
       }
-      
-      // Adiciona o segundo hífen após 8 dígitos
       if (valor.length > 8) {
-        // Aceita 2 ou 3 dígitos no final (10 ou 11 dígitos no total)
         formatado += "-" + valor.substring(8, Math.min(valor.length, 11));
       }
     }
@@ -268,8 +257,44 @@
     this.value = formatado;
   });
 
+  // Função para enviar dados ao Google Sheets
+async function enviarParaGoogleSheets(dados) {
+  const scriptUrl = 'https://script.google.com/macros/s/AKfycbxuTZPkA2znf9mROvmXFuGf67gDME-TTHeU68E2oI7oKboYSnzHwFGSV5zq9FA-IPZ73Q/exec';
+  
+  try {
+    // Convertendo para FormData que é mais compatível com GAS
+    const formData = new URLSearchParams();
+    for (const key in dados) {
+      formData.append(key, dados[key]);
+    }
+    
+    const response = await fetch(scriptUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: formData.toString()
+    });
+    
+    const result = await response.json();
+    
+    if (result.status === 'success') {
+      window.location.href = "agradecimento.html";
+    } else {
+      throw new Error(result.message || 'Falha no envio');
+    }
+  } catch (error) {
+    console.error('Erro:', error);
+    alert('Ocorreu um erro ao enviar: ' + error.message);
+    const botao = document.querySelector('.botao-enviar');
+    botao.disabled = false;
+    botao.textContent = 'Enviar';
+  }
+}
+
+  // Função principal de envio da pesquisa
   function enviarPesquisa() {
-    // Validação do número de atendimento (10 ou 11 dígitos)
+    // Validação do número de atendimento
     const numeroAtendimento = document.getElementById('numeroAtendimento').value;
     const numeroLimpo = numeroAtendimento.replace(/\D/g, "");
     const tamanhoValido = numeroLimpo.length === 10 || numeroLimpo.length === 11;
@@ -280,7 +305,7 @@
       return;
     }
     
-    // Restante do código permanece igual...
+    // Validação das perguntas
     const perguntas = [
       {name: 'nota1', text: 'avaliação do atendimento da recepção'},
       {name: 'nota2', text: 'tempo de espera para o atendimento'},
@@ -297,24 +322,25 @@
       }
     }
     
+    // Prepara os dados para envio
     const dados = {
       numeroAtendimento: numeroLimpo,
-      comentario: document.getElementById('comentario').value
+      comentario: document.getElementById('comentario').value,
+      timestamp: new Date().toISOString()
     };
-    
+
+    // Adiciona as respostas das perguntas
     perguntas.forEach(p => {
       dados[p.name] = document.querySelector(`input[name="${p.name}"]:checked`).value;
     });
     
-    console.log('Dados coletados:', dados);
-    
+    // Feedback visual durante o envio
     const botao = document.querySelector('.botao-enviar');
     botao.disabled = true;
     botao.textContent = 'Enviando...';
     
-    setTimeout(() => {
-      window.location.href = "agradecimento.html";
-    }, 1500);
+    // Envia para o Google Sheets
+    enviarParaGoogleSheets(dados);
   }
 </script>
 
