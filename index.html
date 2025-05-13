@@ -182,18 +182,20 @@
       padding: 10px;
     }
 
-    /* ========== MEDIA QUERIES ========== */
-/* Tablets em landscape e telas menores */
+    /* ========== MEDIA QUERIES APRIMORADAS ========== */
+/* Configurações base para todos os dispositivos móveis */
 @media (max-width: 992px) {
   .pesquisadesatisfação {
     font-size: 22px;
     padding: 5px 15px;
   }
+  
   .campo-input, 
   .select-estilizado {
     width: 70%;
     font-size: 20px;
   }
+  
   .numero,
   .comentario,
   .titulo-avaliacao,
@@ -202,11 +204,16 @@
   }
 }
 
-/* Tablets em portrait */
+/* Tablets e smartphones grandes (universal) */
 @media (max-width: 768px) {
+  body {
+    padding: 8px;
+  }
+  
   .pesquisadesatisfação {
     margin: 8px auto 15px auto;
   }
+  
   .numero,
   .comentario,
   .titulo-avaliacao,
@@ -215,30 +222,49 @@
     padding: 8px;
     margin: 15px auto;
   }
+  
   .campo-input,
   .select-estilizado {
     width: 80%;
     font-size: 18px;
     height: 45px;
   }
+  
   textarea {
     font-size: 18px;
     height: 200px;
   }
+  
   .grupo-avaliacao {
     font-size: 18px;
     gap: 8px;
   }
+  
   .botao-enviar {
     font-size: 20px;
+    min-height: 44px; /* Tamanho mínimo para toque */
+  }
+  
+  /* Ajustes específicos para iOS (não afeta Android/Desktop) */
+  @supports (-webkit-touch-callout: none) {
+    .campo-input, 
+    .select-estilizado, 
+    textarea {
+      min-height: 44px; /* Atende às diretrizes de acessibilidade da Apple */
+    }
+    
+    .grupo-avaliacao label {
+      padding: 10px 15px; /* Área de toque maior */
+    }
   }
 }
 
-/* Smartphones grandes */
+/* Smartphones médios (ex: Galaxy S20, Pixel 5) */
 @media (max-width: 576px) {
   body {
     padding: 5px;
   }
+  
   .pesquisadesatisfação {
     font-size: 18px;
     border-width: 4px;
@@ -246,6 +272,7 @@
     padding: 3px 10px;
     margin: 5px auto 10px auto;
   }
+  
   .numero,
   .comentario,
   .titulo-avaliacao,
@@ -255,6 +282,7 @@
     margin: 10px auto;
     min-height: 40px;
   }
+  
   .campo-input,
   .select-estilizado {
     width: 95%;
@@ -262,11 +290,13 @@
     height: 40px;
     padding: 8px;
   }
+  
   textarea {
     font-size: 16px;
     height: 150px;
     padding: 8px;
   }
+  
   .grupo-avaliacao {
     flex-direction: column;
     align-items: flex-start;
@@ -274,6 +304,7 @@
     font-size: 16px;
     margin: 10px auto;
   }
+  
   .botao-enviar {
     font-size: 18px;
     padding: 6px 12px;
@@ -281,20 +312,53 @@
   }
 }
 
-/* Smartphones muito pequenos */
+/* Smartphones pequenos (ex: iPhone SE) */
 @media (max-width: 400px) {
   .pesquisadesatisfação h1 {
     font-size: 16px;
   }
+  
   .numero,
   .comentario,
   .titulo-avaliacao,
   .unidadeAtendimento {
     font-size: 16px;
   }
+  
   .select-estilizado {
     background-size: 16px;
     padding-right: 30px;
+  }
+  
+  /* Ajuste de safe area para iPhones com notch */
+  @supports (-webkit-touch-callout: none) {
+    body {
+      padding-left: env(safe-area-inset-left, 5px);
+      padding-right: env(safe-area-inset-right, 5px);
+    }
+    
+    .botao-enviar {
+      margin-bottom: env(safe-area-inset-bottom, 15px);
+    }
+  }
+}
+
+/* Ajustes para iPad em modo paisagem */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .pesquisadesatisfação {
+    max-width: 600px;
+  }
+  
+  .campo-input,
+  .select-estilizado {
+    width: 60%;
+  }
+  
+  /* Correção do teclado virtual no iPad */
+  @supports (-webkit-touch-callout: none) {
+    textarea {
+      height: 120px;
+    }
   }
 }
   </style>
