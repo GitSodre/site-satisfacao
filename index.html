@@ -81,12 +81,12 @@
       text-align: center;
       margin: 10px auto;
       display: block;
-      font-size: 20px;
+      font-size: 22px;
       padding: 5px;
       border-radius: 8px;
       border: 2px solid #888;
       box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%);
-      width: 100%;
+      width: 50%;
       max-width: 700px;
       height: 50px;
       box-sizing: border-box;
@@ -103,7 +103,7 @@
       box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%);
       width: 90%;
       max-width: 650px;
-      height: 200px;
+      height: 280px;
       box-sizing: border-box;
     }
 
@@ -116,7 +116,7 @@
     .botao-enviar {
       display: block;
       margin: 20px auto;
-      font-size: 20px;
+      font-size: 25px;
       padding: 8px 16px;
       cursor: pointer;
       border-radius: 50px;
@@ -161,9 +161,9 @@
   border-radius: 8px;
   border: 2px solid #888;
   box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%);
-  width: 90%;
+  width: 50%;
   max-width: 700px;
-  height: 50px;
+  height: 55px;
   box-sizing: border-box;
   background-color: white;
   color: black;
@@ -272,7 +272,7 @@
     <h1>Pesquisa de Satisfação</h1>
   </div>
 
-  <label class="numero" for="numeroAtendimento">Número de Atendimento:</label>
+  <label class="numero" for="numeroAtendimento">Ordem de serviço:</label>
   <input type="text" placeholder="(Somente números)" maxlength="13" title="Somente números" pattern="[0-9]+" id="numeroAtendimento" name="numeroAtendimento" class="campo-input">
   
 <label class="unidadeAtendimento" for="unidadeAtendimento">Unidade de Atendimento:</label> 
@@ -434,7 +434,7 @@
       const tamanhoValido = numeroAtendimento.length >= 11 && numeroAtendimento.length <= 13;
       
       if (!formatoValido || !tamanhoValido) {
-        alert('O número de atendimento informado não é válido (formatos aceitos: XXX-XXXXX-X, XXX-XXXXX-XX ou XXX-XXXXX-XXX)!');
+        alert('Ordem de serviço inválida! Ela deve ter entre 9 e 11 dígitos. Mas fique à vontade para deixar em branco, se preferir.)!');
         document.getElementById('numeroAtendimento').focus();
         return;
       }
