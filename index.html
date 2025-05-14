@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Pesquisa de Satisfação - Laboratório Bittar</title>
+  <style>
+    /* ========== ESTILOS GERAIS ========== */
+    body {
+      background-color: #004884;
+      font-family: Calibri;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ========== CONTAINER DO TÍTULO PRINCIPAL ========== */
+    .pesquisadesatisfação {
+      text-align: center;
+      color: hsl(45, 42%, 40%);
+      font-size: 25px;
+      padding: 1px 10px 1px 10px;
+      line-height: 0.5;
+      margin: 10px auto 20px auto;
+      border: 6px solid hsl(45, 42%, 40%);
+      border-radius: 50px;
+      width: fit-content;
+      background-color: rgba(255, 255, 255, 0.85);
+      box-shadow: 3px 3px 8px rgba(121, 105, 49, 20);
+    }
+
+    /* ========== ESTILOS PARA OS RÓTULOS ========== */
+    .numero,
+    .comentario,
+    .titulo-avaliacao,
+    .unidadeAtendimento {
+      display: block;
+      font-weight: bold;
+      text-align: center;
+      margin: 20px auto;
+      color: black;
+      padding: 10px 5px 5px 5px;
+      font-size: 30px;
+      background-color: #bcbdbf;
+      border: 2px solid #888;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 700px;
+      height: auto;
+      min-height: 45px;
+      box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%);
+      box-sizing: border-box;
+    }
+
+    /* ========== ASTERISCO PARA CAMPOS OBRIGATÓRIOS ========== */
+    .destaque::after,
+    .unidadeAtendimento::after,
+    .titulo-avaliacao::after {
+      content: "*";
+      color: red;
+      margin-left: 4px;
+    }
+
+    /* ========== CAMPOS DE ENTRADA ========== */
+    .campo-input {
+      text-align: center;
+      margin: 10px auto;
+      display: block;
+      font-size: 22px;
+      padding: 5px;
+      border-radius: 8px;
+      border: 2px solid #888;
+      box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%);
+      width: 50%;
+      max-width: 700px;
+      height: 50px;
+      box-sizing: border-box;
+    }
+
+    /* ========== ÁREA DE TEXTO ========== */
+    textarea {
+      text-align: left;
+      margin: 10px auto;
+      display: block;
+      font-size: 20px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 2px solid #888;
+      box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%);
+      width: 90%;
+      max-width: 650px;
+      height: 280px;
+      box-sizing: border-box;
+    }
+
+    /* ========== PLACEHOLDERS ========== */
+    .campo-input::placeholder,
+    textarea::placeholder {
+      font-size: 20px;
+      color: #888;
+    }
+
+    /* ========== BOTÃO DE ENVIO ========== */
+    .botao-enviar {
+      display: block;
+      margin: 40px auto;
+      margin-bottom: 100px;
+      font-size: 30px;
+      padding: 8px 16px;
+      cursor: pointer;
+      border-radius: 50px;
+      background-color: white;
+      border: 2px solid black;
+      box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%);
+      transition: all 0.3s ease;
+    }
+
+    .botao-enviar:hover {
+      background-color: #004884;
+      color: white;
+      border: 2px solid white;
+      transform: scale(1.05);
+    }
+
+    /* ========== GRUPOS DE AVALIAÇÃO (RADIO BUTTONS) ========== */
+    .grupo-avaliacao {
+      text-align: center;
+      margin: 20px auto;
+      color: white;
+      font-size: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      width: 90%;
+      max-width: 700px;
+    }
+
+    .grupo-avaliacao label {
+      display: inline-flex;
+      align-items: center;
+      margin: 0;
+      padding: 8px 12px;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    /* Correções ESPECÍFICAS para Safari iOS */
+    @supports (-webkit-touch-callout: none) {
+      .grupo-avaliacao {
+        display: -webkit-flex;
+        -webkit-flex-wrap: wrap;
+        -webkit-justify-content: center;
+        -webkit-align-items: center;
+        row-gap: 12px;
+        column-gap: 8px;
+      }
+      
+      .grupo-avaliacao label {
+        -webkit-flex-shrink: 0;
+        padding: 10px 14px;
+        background-color: rgba(255,255,255,0.1);
+        border-radius: 8px;
+      }
+    }
+
+    /* ========== SELECT ESTILIZADO ========== */
+    .select-estilizado {
+      display: block;
+      margin: 10px auto;
+      font-size: 22px;
+      text-align: center;
+      padding: 12px 15px;
+      border-radius: 8px;
+      border: 2px solid #888;
+      box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%);
+      width: 50%;
+      max-width: 700px;
+      height: 55px;
+      box-sizing: border-box;
+      background-color: white;
+      color: black;
+      font-family: Calibri;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000000'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 15px center;
+      background-size: 20px;
+      cursor: pointer;
+    }
+
+    .select-estilizado:hover {
+      border-color: #004884;
+    }
+
+    .select-estilizado:focus {
+      outline: none;
+      border-color: #004884;
+      box-shadow: 3px 3px 8px rgba(0, 0, 0, 100%);
+    }
+
+    .select-estilizado option {
+      background-color: white;
+      color: black;
+      font-size: 22px;
+      padding: 10px;
+    }
+
+    /* ========== MEDIA QUERIES ========== */
+    @media (max-width: 992px) {
+      .pesquisadesatisfação {
+        font-size: 22px;
+        padding: 5px 15px;
+      }
+      
+      .campo-input, 
+      .select-estilizado {
+        width: 70%;
+        font-size: 20px;
+      }
+      
+      .numero,
+      .comentario,
+      .titulo-avaliacao,
+      .unidadeAtendimento {
+        font-size: 26px;
+      }
+      
+      .grupo-avaliacao {
+        font-size: 26px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 8px;
+      }
+      
+      .pesquisadesatisfação {
+        margin: 8px auto 15px auto;
+      }
+      
+      .numero,
+      .comentario,
+      .titulo-avaliacao,
+      .unidadeAtendimento {
+        font-size: 22px;
+        padding: 8px;
+        margin: 15px auto;
+      }
+      
+      .campo-input,
+      .select-estilizado {
+        width: 80%;
+        font-size: 18px;
+        height: 45px;
+      }
+      
+      textarea {
+        font-size: 18px;
+        height: 200px;
+      }
+      
+      .grupo-avaliacao {
+        font-size: 20px;
+        gap: 8px;
+      }
+      
+      .botao-enviar {
+        font-size: 20px;
+        min-height: 44px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      body {
+        padding: 5px;
+      }
+      
+      .pesquisadesatisfação {
+        font-size: 18px;
+        border-width: 4px;
+        line-height: 1;
+        padding: 3px 10px;
+        margin: 5px auto 10px auto;
+      }
+      
+      .numero,
+      .comentario,
+      .titulo-avaliacao,
+      .unidadeAtendimento {
+        font-size: 18px;
+        padding: 6px;
+        margin: 10px auto;
+        min-height: 40px;
+      }
+      
+      .campo-input,
+      .select-estilizado {
+        width: 95%;
+        font-size: 16px;
+        height: 40px;
+        padding: 8px;
+      }
+      
+      textarea {
+        font-size: 16px;
+        height: 150px;
+        padding: 8px;
+      }
+      
+      .grupo-avaliacao {
+        font-size: 16px;
+        gap: 6px;
+      }
+      
+      .botao-enviar {
+        font-size: 18px;
+        padding: 6px 12px;
+        margin: 15px auto;
+      }
+      
+      /* Ajuste fino para iOS em smartphones */
+      @supports (-webkit-touch-callout: none) {
+        .grupo-avaliacao label {
+          padding: 8px 10px;
+        }
+      }
+    }
+
+    @media (max-width: 400px) {
+      .pesquisadesatisfação h1 {
+        font-size: 16px;
+      }
+      
+      .numero,
+      .comentario,
+      .titulo-avaliacao,
+      .unidadeAtendimento {
+        font-size: 16px;
+      }
+      
+      .select-estilizado {
+        background-size: 16px;
+        padding-right: 30px;
+      }
+      
+      /* Safe area para iPhones com notch */
+      @supports (-webkit-touch-callout: none) {
+        body {
+          padding-left: env(safe-area-inset-left, 5px);
+          padding-right: env(safe-area-inset-right, 5px);
+        }
+        
+        .botao-enviar {
+          margin-bottom: env(safe-area-inset-bottom, 15px);
+        }
+        
+        .grupo-avaliacao {
+          gap: 4px;
+        }
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ========== LOGO ========== -->
+  <img src="imagens/bit01.png" alt="Logo Bittar" style="display: block; margin: 0px auto 5px auto; width: 250px;">
+  
+  <!-- ========== CONTAINER DO TÍTULO PRINCIPAL ========== -->
+  <div class="pesquisadesatisfação"> 
+    <h1>Pesquisa de Satisfação</h1>
+  </div>
+  
+  <!-- ========== CONTAINER CPF ========== -->
+  <label class="numero destaque" for="CPF">CPF:</label>
+  <input type="text" placeholder="Digite seu CPF" maxlength="14" title="Digite seu CPF" class="campo-input" id="CPF" name="CPF" required>
+
+  <!-- ========== FORMULÁRIO - NÚMERO DE ATENDIMENTO ========== -->
+  <label class="numero" for="numeroAtendimento">O.S:</label>
+  <input type="text" placeholder="(Somente números)" maxlength="13" title="Somente números" pattern="[0-9]+" id="numeroAtendimento" name="numeroAtendimento" class="campo-input">
+  
+  <!-- ========== FORMULÁRIO - UNIDADE DE ATENDIMENTO ========== -->
+  <label class="unidadeAtendimento" for="unidadeAtendimento">Unidade de Atendimento:</label> 
+  <select name="unidade" id="unidadeAtendimento" class="select-estilizado" required>
+    <option value="" disabled selected>Selecione sua unidade</option>
+    <option value="Centro Niterói">Centro Niterói</option>
+    <option value="Shopping Icaraí">Shopping Icaraí</option>
+    <option value="Tavares de Macedo">Tavares de Macedo</option>
+    <option value="São Francisco">São Francisco</option>
+    <option value="Centro São Gonçalo">Centro São Gonçalo</option>
+    <option value="Alcantara I">Alcantara I</option>
+    <option value="Alcantara II">Alcantara II</option>
+    <option value="Roberto Silveira">Roberto Silveira</option>
+    <option value="Itaipu Multicenter">Itaipu Multicenter</option>
+    <option value="Ingá">Ingá</option>
+    <option value="Gavião Peixoto">Gavião Peixoto</option>
+  </select>
+  
+  <!-- ========== PERGUNTAS DA PESQUISA - ATENDIMENTO RECEPÇÃO ========== -->
+  <p class="titulo-avaliacao">Como você avalia o atendimento da recepção?</p>
+  <div class="grupo-avaliacao">
+    <label><input type="radio" name="nota1" value="0" required> Ruim </label>
+    <label><input type="radio" name="nota1" value="1"> Regular </label>
+    <label><input type="radio" name="nota1" value="2"> Bom </label>
+    <label><input type="radio" name="nota1" value="3"> Ótimo </label>
+  </div>
+  
+  <!-- ========== PERGUNTAS DA PESQUISA - TEMPO DE ESPERA ========== -->
+  <p class="titulo-avaliacao">O tempo de espera para o atendimento foi:</p>
+  <div class="grupo-avaliacao">
+    <label><input type="radio" name="nota2" value="0" required> Demorado </label>
+    <label><input type="radio" name="nota2" value="1"> Razoável </label>
+    <label><input type="radio" name="nota2" value="2"> Muito Rápido </label>
+  </div>
+  
+  <!-- ========== PERGUNTAS DA PESQUISA - TÉCNICO COLETOR ========== -->
+  <p class="titulo-avaliacao">Como você avalia o atendimento do técnico coletor?</p>
+  <div class="grupo-avaliacao">
+    <label><input type="radio" name="nota3" value="0" required> Ruim </label>
+    <label><input type="radio" name="nota3" value="1"> Regular </label>
+    <label><input type="radio" name="nota3" value="2"> Bom </label>
+    <label><input type="radio" name="nota3" value="3"> Ótimo </label>
+  </div>
+  
+  <!-- ========== PERGUNTAS DA PESQUISA - CONFORTO NA COLETA ========== -->
+  <p class="titulo-avaliacao">A coleta foi realizada de forma confortável?</p>
+  <div class="grupo-avaliacao">
+    <label><input type="radio" name="nota4" value="0" required> Não </label>
+    <label><input type="radio" name="nota4" value="1"> Parcialmente </label>
+    <label><input type="radio" name="nota4" value="2"> Sim </label>
+  </div>
+  
+  <!-- ========== PERGUNTAS DA PESQUISA - AVALIAÇÃO DAS INSTALAÇÕES ========== -->
+  <p class="titulo-avaliacao">Como você avalia nossas instalações?</p>
+  <div class="grupo-avaliacao">
+    <label><input type="radio" name="nota5" value="0" required> Ruim </label>
+    <label><input type="radio" name="nota5" value="1"> Regular </label>
+    <label><input type="radio" name="nota5" value="2"> Bom </label>
+    <label><input type="radio" name="nota5" value="3"> Ótimo </label>
+  </div>
+  
+  <!-- ========== PERGUNTAS DA PESQUISA - INDICAÇÃO DO LABORATÓRIO ========== -->
+  <p class="titulo-avaliacao">Qual a probabilidade de você indicar o Laboratório a outras pessoas? (Sendo 0 nada provável e 5 muito provável)</p>
+  <div class="grupo-avaliacao">
+    <label><input type="radio" name="nota6" value="0" required> 0 </label>
+    <label><input type="radio" name="nota6" value="1"> 1 </label>
+    <label><input type="radio" name="nota6" value="2"> 2 </label>
+    <label><input type="radio" name="nota6" value="3"> 3 </label>
+    <label><input type="radio" name="nota6" value="4"> 4 </label>
+    <label><input type="radio" name="nota6" value="5"> 5 </label>
+  </div>
+  
+  <!-- ========== COMENTÁRIOS E BOTÃO DE ENVIO ========== -->
+  <label class="comentario" for="comentario">Deixe seus comentários e sugestões:</label>
+  <textarea id="comentario" placeholder="Digite seu comentário (máximo 400 caracteres)" title="Digite seu Comentário" name="comentario" maxlength="400" rows="6"></textarea>
+
+  <button class="botao-enviar" onclick="enviarPesquisa()">Enviar</button>
+
+  <!-- ========== JAVASCRIPT ========== -->
+  <script>
+    // Mapeamento dos códigos de unidade
+    const unidadesMap = {
+      '001': 'Centro Niterói',
+      '002': 'Shopping Icaraí',
+      '003': 'Tavares de Macedo',
+      '004': 'São Francisco',
+      '005': 'Centro São Gonçalo',
+      '006': 'Alcantara I',
+      '126': 'Alcantara II',
+      '061': 'Roberto Silveira',
+      '066': 'Itaipu Multicenter',
+      '125': 'Ingá',
+      '116': 'Gavião Peixoto'
+    };
+
+    // Variável para armazenar ordens de serviço já utilizadas
+    const ordensServicoUtilizadas = new Set();
+
+    // Máscara para CPF
+    document.getElementById("CPF").addEventListener("input", function() {
+      let valor = this.value.replace(/\D/g, "");
+      
+      if (valor.length > 3) {
+        valor = valor.substring(0, 3) + "." + valor.substring(3);
+      }
+      if (valor.length > 7) {
+        valor = valor.substring(0, 7) + "." + valor.substring(7);
+      }
+      if (valor.length > 11) {
+        valor = valor.substring(0, 11) + "-" + valor.substring(11);
+      }
+      
+      this.value = valor.substring(0, 14);
+    });
+
+    // Formatação do número de atendimento e auto-seleção da unidade
+    document.getElementById("numeroAtendimento").addEventListener("input", function() {
+      let valor = this.value.replace(/\D/g, "");
+      let formatado = "";
+      
+      if (valor.length > 0) {
+        formatado = valor.substring(0, 3);
+        if (valor.length > 3) {
+          formatado += "-" + valor.substring(3, 8);
+        }
+        if (valor.length > 8) {
+          formatado += "-" + valor.substring(8, Math.min(valor.length, 11));
+        }
+        
+        // Auto-selecionar unidade se código for reconhecido
+        const codigoUnidade = valor.substring(0, 3);
+        if (unidadesMap[codigoUnidade]) {
+          const selectUnidade = document.getElementById('unidadeAtendimento');
+          for (let i = 0; i < selectUnidade.options.length; i++) {
+            if (selectUnidade.options[i].value === unidadesMap[codigoUnidade]) {
+              selectUnidade.selectedIndex = i;
+              break;
+            }
+          }
+        }
+      }
+      
+      this.value = formatado;
+    });
+
+    // Função para validar CPF
+    function validarCPF(cpf) {
+      cpf = cpf.replace(/\D/g, '');
+      
+      if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) {
+        return false;
+      }
+      
+      let soma = 0;
+      let resto;
+      
+      for (let i = 1; i <= 9; i++) {
+        soma += parseInt(cpf.substring(i-1, i)) * (11 - i);
+      }
+      
+      resto = (soma * 10) % 11;
+      
+      if ((resto === 10) || (resto === 11)) {
+        resto = 0;
+      }
+      
+      if (resto !== parseInt(cpf.substring(9, 10))) {
+        return false;
+      }
+      
+      soma = 0;
+      
+      for (let i = 1; i <= 10; i++) {
+        soma += parseInt(cpf.substring(i-1, i)) * (12 - i);
+      }
+      
+      resto = (soma * 10) % 11;
+      
+      if ((resto === 10) || (resto === 11)) {
+        resto = 0;
+      }
+      
+      if (resto !== parseInt(cpf.substring(10, 11))) {
+        return false;
+      }
+      
+      return true;
+    }
+
+    // Função para verificar se a ordem de serviço já foi usada
+    async function verificarOrdemServico(ordemServico) {
+      if (!ordemServico) return false;
+      
+      // Aqui você precisaria implementar a chamada ao backend para verificar se a OS já foi usada
+      // Esta é uma implementação simulada
+      return ordensServicoUtilizadas.has(ordemServico.replace(/\D/g, ''));
+    }
+
+    // Função para enviar dados ao Google Sheets
+    async function enviarParaGoogleSheets(dados) {
+      const scriptUrl = 'https://script.google.com/macros/s/AKfycby4bg4KQWC56tDTK5_vHnaYskvgbIP9f-AOqSbG3bxzccLVyV2GL6OzAK_HSaQcxylMAA/exec';
+      
+      try {
+        const formData = new URLSearchParams();
+        for (const key in dados) {
+          formData.append(key, dados[key]);
+        }
+        
+        const response = await fetch(scriptUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: formData.toString()
+        });
+        
+        const result = await response.json();
+        
+        if (result.status === 'success') {
+          // Adiciona a ordem de serviço à lista de utilizadas, se existir
+          if (dados.numeroAtendimento && dados.numeroAtendimento !== 'Não informado') {
+            ordensServicoUtilizadas.add(dados.numeroAtendimento.replace(/\D/g, ''));
+          }
+          window.location.href = "agradecimento.html";
+        } else {
+          throw new Error(result.message || 'Falha no envio');
+        }
+      } catch (error) {
+        console.error('Erro:', error);
+        alert('Ocorreu um erro ao enviar: ' + error.message);
+        const botao = document.querySelector('.botao-enviar');
+        botao.disabled = false;
+        botao.textContent = 'Enviar';
+      }
+    }
+
+    // Função principal de envio da pesquisa
+    async function enviarPesquisa() {
+      // Validação do CPF
+      const cpfInput = document.getElementById('CPF');
+      const cpf = cpfInput.value.replace(/\D/g, '');
+      
+      if (cpf.length !== 11 || !validarCPF(cpfInput.value)) {
+        alert('Por favor, insira um CPF válido!');
+        cpfInput.focus();
+        return;
+      }
+      
+      // Validação do número de atendimento (se preenchido)
+      const numeroAtendimento = document.getElementById('numeroAtendimento').value;
+      
+      if (numeroAtendimento) {
+        const formatoValido = /^\d{3}-\d{5}-\d{1,3}$/.test(numeroAtendimento);
+        const tamanhoValido = numeroAtendimento.length >= 11 && numeroAtendimento.length <= 13;
+        
+        if (!formatoValido || !tamanhoValido) {
+          alert('O.S inválida! Ela deve ter entre 9 e 11 dígitos. Mas fique à vontade para deixar em branco, se preferir!');
+          document.getElementById('numeroAtendimento').focus();
+          return;
+        }
+        
+        // Verifica se a ordem de serviço já foi usada
+        const osJaUtilizada = await verificarOrdemServico(numeroAtendimento);
+        if (osJaUtilizada) {
+          alert('Esta O.S já foi utilizada em uma pesquisa anterior. Por favor, verifique o número ou deixe o campo em branco.');
+          document.getElementById('numeroAtendimento').focus();
+          return;
+        }
+      }
+      
+      // Validação obrigatória da unidade de atendimento
+      const unidadeAtendimento = document.getElementById('unidadeAtendimento').value;
+      if (!unidadeAtendimento) {
+        alert('Por favor, selecione a unidade de atendimento!');
+        document.getElementById('unidadeAtendimento').focus();
+        return;
+      }
+      
+      // Validação das perguntas
+      const perguntas = [
+        {name: 'nota1', text: 'avaliação do atendimento da recepção'},
+        {name: 'nota2', text: 'tempo de espera para o atendimento'},
+        {name: 'nota3', text: 'avaliação do técnico coletor'},
+        {name: 'nota4', text: 'conforto durante a coleta de exames'},
+        {name: 'nota5', text: 'avaliação das instalações'},
+        {name: 'nota6', text: 'indicação do laboratório'}
+      ];
+      
+      for (const pergunta of perguntas) {
+        if (!document.querySelector(`input[name="${pergunta.name}"]:checked`)) {
+          alert(`Por favor, responda sobre: ${pergunta.text}!`);
+          return;
+        }
+      }
+      
+      // Prepara os dados para envio
+      const dados = {
+        cpf: cpf,
+        numeroAtendimento: numeroAtendimento || 'Não informado',
+        unidadeAtendimento: unidadeAtendimento,
+        comentario: document.getElementById('comentario').value,
+        timestamp: new Date().toISOString()
+      };
+
+      // Adiciona as respostas das perguntas
+      perguntas.forEach(p => {
+        dados[p.name] = document.querySelector(`input[name="${p.name}"]:checked`).value;
+      });
+      
+      // Feedback visual durante o envio
+      const botao = document.querySelector('.botao-enviar');
+      botao.disabled = true;
+      botao.textContent = 'Enviando...';
+      
+      // Envia para o Google Sheets
+      enviarParaGoogleSheets(dados);
+    }
+  </script>
+</body>
+</html>
