@@ -1,0 +1,94 @@
+function doPost(e) {
+  try {
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    
+    // Cria cabeçalhos se for a primeira execução
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow([
+        'Data e Hora', 
+        'Número de Atendimento', 
+        'Unidade de Atendimento',
+        'Avaliação - Recepção', 
+        'Avaliação - Tempo de Espera', 
+        'Avaliação - Técnico Coletor', 
+        'Conforto na Coleta', 
+        'Avaliação - Instalações', 
+        'Indicação (0-5)',
+        'Comentários'
+      ]);
+      
+      // Formata cabeçalhos
+      sheet.getRange(1, 1, 1, 10)
+        .setBackground('#004884')
+        .setFontColor('white')
+        .setFontWeight('bold');
+    }
+    
+    // Parse dos dados recebidos
+    const dados = e.parameter;
+    
+    // Prepara dados para inserção
+    const novaLinha = [
+      new Date(),
+      dados.numeroAtendimento || 'Não informado',
+      dados.unidadeAtendimento || '',
+      dados.nota1 || '',
+      dados.nota2 || '',
+      dados.nota3 || '',
+      dados.nota4 || '',
+      dados.nota5 || '',
+      dados.nota6 || '',
+      dados.comentario || ''
+    ];
+    
+    // Adiciona os dados na planilha
+    sheet.appendRow(novaLinha);
+    
+    // Formata a nova linha
+    const ultimaLinha = sheet.getLastRow();
+    sheet.getRange(ultimaLinha, 1, 1, 10)
+      .setBorder(true, true, true, true, true, true)
+      .setVerticalAlignment('middle');
+    
+    // Ajusta largura das colunas
+    sheet.autoResizeColumns(1, 10);
+    
+    return ContentService.createTextOutput(
+      JSON.stringify({
+        status: 'success', 
+        message: 'Dados salvos com sucesso',
+        row: ultimaLinha
+      })
+    ).setMimeType(ContentService.MimeType.JSON);
+    
+  } catch (error) {
+    // Retorna erros de forma amigável
+    return ContentService.createTextOutput(
+      JSON.stringify({
+        status: 'error',
+        message: 'Erro ao processar solicitação',
+        details: error.message
+      })
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// Função auxiliar para teste local
+function testDoPost() {
+  const e = {
+    parameter: {
+      numeroAtendimento: "123-45678-90",
+      unidadeAtendimento: "Centro Niterói",
+      nota1: "3",
+      nota2: "2",
+      nota3: "3",
+      nota4: "2",
+      nota5: "3",
+      nota6: "5",
+      comentario: "Teste realizado com sucesso"
+    }
+  };
+  
+  const result = doPost(e);
+  Logger.log(result.getContent());
+}
