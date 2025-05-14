@@ -596,6 +596,71 @@
       // Envia para o Google Sheets
       enviarParaGoogleSheets(dados);
     }
+    // Adicionando feedback tátil para dispositivos móveis
+  document.addEventListener('DOMContentLoaded', function() {
+    // Função para vibrar o dispositivo (suportado em mobile)
+    function vibrar() {
+      if ('vibrate' in navigator) {
+        // Vibrar por 50ms - padrão para feedback tátil
+        navigator.vibrate(50);
+      }
+    }
+
+    // Adicionar feedback tátil aos radio buttons
+    const radioButtons = document.querySelectorAll('input[type="radio"]');
+    radioButtons.forEach(radio => {
+      radio.addEventListener('touchstart', function() {
+        vibrar();
+        // Adiciona classe de feedback visual temporário
+        this.parentElement.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          this.parentElement.style.transform = '';
+        }, 200);
+      });
+    });
+
+    // Adicionar feedback tátil ao botão de enviar
+    const botaoEnviar = document.querySelector('.botao-enviar');
+    if (botaoEnviar) {
+      botaoEnviar.addEventListener('touchstart', function() {
+        vibrar();
+        // Adiciona classe de feedback visual temporário
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          this.style.transform = '';
+        }, 200);
+      });
+    }
+
+    // Adicionar feedback tátil ao select
+    const selectUnidade = document.getElementById('unidadeAtendimento');
+    if (selectUnidade) {
+      selectUnidade.addEventListener('touchstart', function() {
+        vibrar();
+        // Adiciona classe de feedback visual temporário
+        this.style.transform = 'scale(0.98)';
+        setTimeout(() => {
+          this.style.transform = '';
+        }, 200);
+      });
+    }
+
+    // Adicionar feedback tátil ao campo de texto
+    const campoTexto = document.getElementById('numeroAtendimento');
+    if (campoTexto) {
+      campoTexto.addEventListener('touchstart', function() {
+        vibrar();
+      });
+    }
+
+    // Adicionar feedback tátil à área de comentários
+    const areaComentarios = document.getElementById('comentario');
+    if (areaComentarios) {
+      areaComentarios.addEventListener('touchstart', function() {
+        vibrar();
+      });
+    }
+  });
   </script>
 </body>
 </html>
