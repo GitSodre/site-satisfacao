@@ -13,6 +13,13 @@
       padding: 0;
     }
 
+    /* ========== LOGO ========== */
+    .logo-bittar {
+      display: block; 
+      margin: 0px auto 5px auto; 
+      width: 250px;
+    }
+
     /* ========== CONTAINER DO TÍTULO PRINCIPAL ========== */
     .pesquisadesatisfação {
       text-align: center;
@@ -29,10 +36,7 @@
     }
 
     /* ========== ESTILOS PARA OS RÓTULOS ========== */
-    .numero,
-    .comentario,
-    .titulo-avaliacao,
-    .unidadeAtendimento {
+    .rotulo {
       display: block;
       font-weight: bold;
       text-align: center;
@@ -52,9 +56,7 @@
     }
 
     /* ========== ASTERISCO PARA CAMPOS OBRIGATÓRIOS ========== */
-    .destaque::after,
-    .unidadeAtendimento::after,
-    .titulo-avaliacao::after {
+    .rotulo.obrigatorio::after {
       content: "*";
       color: red;
       margin-left: 4px;
@@ -77,7 +79,7 @@
     }
 
     /* ========== ÁREA DE TEXTO ========== */
-    textarea {
+    .campo-textarea {
       text-align: left;
       margin: 10px auto;
       display: block;
@@ -94,7 +96,7 @@
 
     /* ========== PLACEHOLDERS ========== */
     .campo-input::placeholder,
-    textarea::placeholder {
+    .campo-textarea::placeholder {
       font-size: 20px;
       color: #888;
     }
@@ -221,10 +223,7 @@
         font-size: 20px;
       }
       
-      .numero,
-      .comentario,
-      .titulo-avaliacao,
-      .unidadeAtendimento {
+      .rotulo {
         font-size: 26px;
       }
       
@@ -242,10 +241,7 @@
         margin: 8px auto 15px auto;
       }
       
-      .numero,
-      .comentario,
-      .titulo-avaliacao,
-      .unidadeAtendimento {
+      .rotulo {
         font-size: 22px;
         padding: 8px;
         margin: 15px auto;
@@ -258,7 +254,7 @@
         height: 45px;
       }
       
-      textarea {
+      .campo-textarea {
         font-size: 18px;
         height: 200px;
       }
@@ -287,10 +283,7 @@
         margin: 5px auto 10px auto;
       }
       
-      .numero,
-      .comentario,
-      .titulo-avaliacao,
-      .unidadeAtendimento {
+      .rotulo {
         font-size: 18px;
         padding: 6px;
         margin: 10px auto;
@@ -305,7 +298,7 @@
         padding: 8px;
       }
       
-      textarea {
+      .campo-textarea {
         font-size: 16px;
         height: 150px;
         padding: 8px;
@@ -335,10 +328,7 @@
         font-size: 16px;
       }
       
-      .numero,
-      .comentario,
-      .titulo-avaliacao,
-      .unidadeAtendimento {
+      .rotulo {
         font-size: 16px;
       }
       
@@ -367,23 +357,23 @@
 </head>
 <body>
   <!-- ========== LOGO ========== -->
-  <img src="imagens/bit01.png" alt="Logo Bittar" style="display: block; margin: 0px auto 5px auto; width: 250px;">
+  <img src="imagens/bit01.png" alt="Logo Bittar" class="logo-bittar">
   
   <!-- ========== CONTAINER DO TÍTULO PRINCIPAL ========== -->
   <div class="pesquisadesatisfação"> 
     <h1>Pesquisa de Satisfação</h1>
   </div>
   
-  <!-- ========== CONTAINER CPF ========== -->
-  <label class="numero destaque" for="CPF">CPF:</label>
+  <!-- ========== FORMULÁRIO - CPF ========== -->
+  <label class="rotulo obrigatorio" for="CPF">CPF:</label>
   <input type="text" placeholder="Digite seu CPF" maxlength="14" title="Digite seu CPF" class="campo-input" id="CPF" name="CPF" required>
 
   <!-- ========== FORMULÁRIO - NÚMERO DE ATENDIMENTO ========== -->
-  <label class="numero" for="numeroAtendimento">O.S:</label>
+  <label class="rotulo" for="numeroAtendimento">O.S:</label>
   <input type="text" placeholder="(Somente números)" maxlength="13" title="Somente números" pattern="[0-9]+" id="numeroAtendimento" name="numeroAtendimento" class="campo-input">
   
   <!-- ========== FORMULÁRIO - UNIDADE DE ATENDIMENTO ========== -->
-  <label class="unidadeAtendimento" for="unidadeAtendimento">Unidade de Atendimento:</label> 
+  <label class="rotulo obrigatorio" for="unidadeAtendimento">Unidade de Atendimento:</label> 
   <select name="unidade" id="unidadeAtendimento" class="select-estilizado" required>
     <option value="" disabled selected>Selecione sua unidade</option>
     <option value="Centro Niterói">Centro Niterói</option>
@@ -400,7 +390,7 @@
   </select>
   
   <!-- ========== PERGUNTAS DA PESQUISA - ATENDIMENTO RECEPÇÃO ========== -->
-  <p class="titulo-avaliacao">Como você avalia o atendimento da recepção?</p>
+  <p class="rotulo obrigatorio">Como você avalia o atendimento da recepção?</p>
   <div class="grupo-avaliacao">
     <label><input type="radio" name="nota1" value="0" required> Ruim </label>
     <label><input type="radio" name="nota1" value="1"> Regular </label>
@@ -409,7 +399,7 @@
   </div>
   
   <!-- ========== PERGUNTAS DA PESQUISA - TEMPO DE ESPERA ========== -->
-  <p class="titulo-avaliacao">O tempo de espera para o atendimento foi:</p>
+  <p class="rotulo obrigatorio">O tempo de espera para o atendimento foi:</p>
   <div class="grupo-avaliacao">
     <label><input type="radio" name="nota2" value="0" required> Demorado </label>
     <label><input type="radio" name="nota2" value="1"> Razoável </label>
@@ -417,7 +407,7 @@
   </div>
   
   <!-- ========== PERGUNTAS DA PESQUISA - TÉCNICO COLETOR ========== -->
-  <p class="titulo-avaliacao">Como você avalia o atendimento do técnico coletor?</p>
+  <p class="rotulo obrigatorio">Como você avalia o atendimento do técnico coletor?</p>
   <div class="grupo-avaliacao">
     <label><input type="radio" name="nota3" value="0" required> Ruim </label>
     <label><input type="radio" name="nota3" value="1"> Regular </label>
@@ -426,7 +416,7 @@
   </div>
   
   <!-- ========== PERGUNTAS DA PESQUISA - CONFORTO NA COLETA ========== -->
-  <p class="titulo-avaliacao">A coleta foi realizada de forma confortável?</p>
+  <p class="rotulo obrigatorio">A coleta foi realizada de forma confortável?</p>
   <div class="grupo-avaliacao">
     <label><input type="radio" name="nota4" value="0" required> Não </label>
     <label><input type="radio" name="nota4" value="1"> Parcialmente </label>
@@ -434,7 +424,7 @@
   </div>
   
   <!-- ========== PERGUNTAS DA PESQUISA - AVALIAÇÃO DAS INSTALAÇÕES ========== -->
-  <p class="titulo-avaliacao">Como você avalia nossas instalações?</p>
+  <p class="rotulo obrigatorio">Como você avalia nossas instalações?</p>
   <div class="grupo-avaliacao">
     <label><input type="radio" name="nota5" value="0" required> Ruim </label>
     <label><input type="radio" name="nota5" value="1"> Regular </label>
@@ -443,7 +433,7 @@
   </div>
   
   <!-- ========== PERGUNTAS DA PESQUISA - INDICAÇÃO DO LABORATÓRIO ========== -->
-  <p class="titulo-avaliacao">Qual a probabilidade de você indicar o Laboratório a outras pessoas? (Sendo 0 nada provável e 5 muito provável)</p>
+  <p class="rotulo obrigatorio">Qual a probabilidade de você indicar o Laboratório a outras pessoas? (Sendo 0 nada provável e 5 muito provável)</p>
   <div class="grupo-avaliacao">
     <label><input type="radio" name="nota6" value="0" required> 0 </label>
     <label><input type="radio" name="nota6" value="1"> 1 </label>
@@ -454,8 +444,8 @@
   </div>
   
   <!-- ========== COMENTÁRIOS E BOTÃO DE ENVIO ========== -->
-  <label class="comentario" for="comentario">Deixe seus comentários e sugestões:</label>
-  <textarea id="comentario" placeholder="Digite seu comentário (máximo 400 caracteres)" title="Digite seu Comentário" name="comentario" maxlength="400" rows="6"></textarea>
+  <label class="rotulo" for="comentario">Deixe seus comentários e sugestões:</label>
+  <textarea id="comentario" placeholder="Digite seu comentário (máximo 400 caracteres)" title="Digite seu Comentário" name="comentario" maxlength="400" rows="6" class="campo-textarea"></textarea>
 
   <button class="botao-enviar" onclick="enviarPesquisa()">Enviar</button>
 
@@ -475,9 +465,6 @@
       '125': 'Ingá',
       '116': 'Gavião Peixoto'
     };
-
-    // Variável para armazenar ordens de serviço já utilizadas
-    const ordensServicoUtilizadas = new Set();
 
     // Máscara para CPF
     document.getElementById("CPF").addEventListener("input", function() {
@@ -570,15 +557,6 @@
       return true;
     }
 
-    // Função para verificar se a ordem de serviço já foi usada
-    async function verificarOrdemServico(ordemServico) {
-      if (!ordemServico) return false;
-      
-      // Aqui você precisaria implementar a chamada ao backend para verificar se a OS já foi usada
-      // Esta é uma implementação simulada
-      return ordensServicoUtilizadas.has(ordemServico.replace(/\D/g, ''));
-    }
-
     // Função para enviar dados ao Google Sheets
     async function enviarParaGoogleSheets(dados) {
       const scriptUrl = 'https://script.google.com/macros/s/AKfycbwAN_pl5jZaMUG7ngwjoe0aaalWtn-K58BdM_ulD-MVLkq55LJp-BJVgi9X9oEIa3b09A/exec';
@@ -600,10 +578,6 @@
         const result = await response.json();
         
         if (result.status === 'success') {
-          // Adiciona a ordem de serviço à lista de utilizadas, se existir
-          if (dados.numeroAtendimento && dados.numeroAtendimento !== 'Não informado') {
-            ordensServicoUtilizadas.add(dados.numeroAtendimento.replace(/\D/g, ''));
-          }
           window.location.href = "agradecimento.html";
         } else {
           throw new Error(result.message || 'Falha no envio');
@@ -638,14 +612,6 @@
         
         if (!formatoValido || !tamanhoValido) {
           alert('O.S inválida! Ela deve ter entre 9 e 11 dígitos. Mas fique à vontade para deixar em branco, se preferir!');
-          document.getElementById('numeroAtendimento').focus();
-          return;
-        }
-        
-        // Verifica se a ordem de serviço já foi usada
-        const osJaUtilizada = await verificarOrdemServico(numeroAtendimento);
-        if (osJaUtilizada) {
-          alert('Esta O.S já foi utilizada em uma pesquisa anterior. Por favor, verifique o número ou deixe o campo em branco.');
           document.getElementById('numeroAtendimento').focus();
           return;
         }
