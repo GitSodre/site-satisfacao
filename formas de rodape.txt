@@ -1,0 +1,38 @@
+
+
+css
+
+footer {
+  background-color: rgba(255, 255, 255, 0.85); /* cor de fundo clara */
+  color: #333;               /* cor do texto */
+  text-align: center;        /* centraliza o texto */
+  padding: 20px;             /* espaço interno */
+  font-size: 14px;           /* tamanho do texto */
+  border-top: 6px solid hsl(45, 42%, 40%); /* linha superior */
+  margin-top: 40px;          /* espaço antes do rodapé */
+}
+
+footer a {
+  color: #004884;            /* cor dos links */
+  text-decoration: none;     /* remove sublinhado */
+}
+
+footer a:hover {
+  text-decoration: underline; /* sublinhado ao passar o mouse */
+}
+
+
+
+
+
+
+
+
+
+html
+
+<footer style="text-align: center; padding: 20px;">
+  <p>&copy; 2025 Laboratório Bittar. Todos os direitos reservados.</p>
+  <p>Promovido por <a href="https://www.labittar.com.br/" target="_blank">Laboratório Bittar</a></p>
+  <p>Contato: <a href="mailto:lucas@email.com">lucas@email.com</a></p>
+</footer>
