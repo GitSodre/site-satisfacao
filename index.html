@@ -233,7 +233,8 @@ footer a:hover {
 }
 
     /* ========== MEDIA QUERIES ========== */
-    @media (max-width: 992px) {
+	
+	@media (max-width: 992px) {
       .pesquisadesatisfação {
         font-size: 22px;
         padding: 5px 15px;
@@ -359,7 +360,38 @@ footer a:hover {
         padding-right: 30px;
       }
       
-      /* Safe area para iPhones com notch */
+      @media (max-width: 390px) {
+	  
+	  .pesquisadesatisfação {
+        font-size: 18px;
+        border-width: 4px;
+        line-height: 1;
+        padding: 3px 10px;
+        margin: 20px auto 20px auto;
+      }
+	  
+	  .rotulo {
+	  font-size: 18px;
+	  }
+	  
+	  .grupo-avaliacao {
+	  font-size: 14px;
+	  }
+	  
+	  .logo-bittar {
+	  display: block;
+	  width: 200px; 
+	  }
+	  
+	.campo-input::placeholder,
+    .campo-textarea::placeholder {
+      font-size: 15px;
+      color: #888;
+    }
+	  
+	  }
+	  
+	  /* Safe area para iPhones com notch */
       @supports (-webkit-touch-callout: none) {
         body {
           padding-left: env(safe-area-inset-left, 5px);
@@ -474,7 +506,7 @@ footer a:hover {
   <footer style="text-align: center; padding: 20px;">
   <p>&copy; 2025 Laboratório Bittar. Todos os direitos reservados.</p>
   <p>Promovido por <a href="https://www.labittar.com.br/" target="_blank">Laboratório Bittar</a></p>
-  <p>Contato: <a href="mailto:lucas@email.com">lucas@email.com</a></p>
+  <p>WhatsApp: (21)99995-6816 <br>Central de Atendimento: (21)2621-6161</p>
   </footer>
   
   <!-- ========== JAVASCRIPT ========== -->
