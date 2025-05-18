@@ -213,14 +213,14 @@
     }
   /* ================================= RODAPÉ =================================== */
     footer {
-  background-color: rgba(255, 255, 255, 0.85); /* cor de fundo clara */
-  color: #333;               /* cor do texto */
-  text-align: center;        /* centraliza o texto */
-  padding: 20px;             /* espaço interno */
-  font-size: 14px;           /* tamanho do texto */
-  border-top: 6px solid hsl(45, 42%, 40%); /* linha superior */
+  background-color: rgba(255, 255, 255, 0.85); 
+  color: #333;               
+  text-align: center;        
+  padding: 20px;             
+  font-size: 14px;           
+  border-top: 6px solid hsl(45, 42%, 40%); 
   box-shadow: 1px 1px 50px rgba(0, 0, 0, 100%);
-  margin-top: 40px;          /* espaço antes do rodapé */
+  margin-top: 40px; 
 }
 
 footer a {
@@ -230,6 +230,22 @@ footer a {
 
 footer a:hover {
   text-decoration: underline; /* sublinhado ao passar o mouse */
+}
+
+/* ========== BLOQUEIO DE SELEÇÃO DE TEXTO ========== */
+body {
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Padrão */
+}
+
+/* Permite seleção em campos de input e textarea */
+input, textarea {
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
 }
 
     /* ========== MEDIA QUERIES ========== */
@@ -520,7 +536,44 @@ footer a:hover {
   <!-- ========== JAVASCRIPT ========== -->
   <script>
     // Mapeamento dos códigos de unidade
-    const unidadesMap = {
+    
+	// ========== SEGURANÇA - BLOQUEIO DE FUNÇÕES ==========
+  
+  // Bloqueia menu de contexto (botão direito)
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    
+  });
+
+  // Bloqueia atalhos de teclado (F12, Ctrl+Shift+I, etc)
+  document.addEventListener('keydown', function(e) {
+    // F12
+    if (e.key === 'F12' || 
+        // Ctrl+Shift+I (Chrome/Edge)
+        (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+        // Ctrl+Shift+J (Chrome/Edge)
+        (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+        // Ctrl+Shift+C (Chrome/Edge)
+        (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+        // Ctrl+U (View Source)
+        (e.ctrlKey && e.key === 'u')) {
+      e.preventDefault();
+      
+    }
+  });
+
+  // Desabilita seleção de texto
+  document.addEventListener('selectstart', function(e) {
+    e.preventDefault();
+  });
+
+  // Desabilita cópia (Ctrl+C)
+  document.addEventListener('copy', function(e) {
+    e.preventDefault();
+    alert('Cópia de conteúdo desativada.');
+  });
+	
+	const unidadesMap = {
       '001': 'Centro Niterói',
       '002': 'Shopping Icaraí',
       '003': 'Tavares de Macedo',
