@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="ModPagespeed" content="off">
+  <meta name="PageSpeed" content="no-transform">
   <title>Obrigado!</title>
   <style>
     body {
@@ -57,17 +59,70 @@
         font-size: 18px;
       }
     }
+	
+	/* ========== BLOQUEIO DE SELEÇÃO DE TEXTO ========== */
+body {
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Padrão */
+}
+
+/* Permite seleção em campos de input e textarea */
+input, textarea {
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+}
+	
   </style>
 </head>
 <body>
 
-  <img src="imagens/bit01.png" alt="Logo Bittar" style="display: block; margin: 0px auto 5px auto; width: 250px;">
+  <img src="imagens/bit01.png" alt="Logo Bittar" style="display: block; margin: 0px auto 5px auto; width: 250px;box-shadow: 1px 1px 50px rgba(0, 0, 0, 100%);margin: 30px auto 5px auto;">
   
   <div class="mensagem-agradecimento">
     <h1>Obrigado por sua participação!</h1>
     <p>Sua opinião é muito importante para nós e nos ajuda a melhorar nossos serviços.</p>
     <p>Agradecemos pelo seu tempo e pela confiança em nosso trabalho.</p>
   </div>
+<script>
+  // ========== SEGURANÇA - BLOQUEIO DE FUNÇÕES ==========
+  
+  // Bloqueia menu de contexto (botão direito)
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    
+  });
 
+  // Bloqueia atalhos de teclado (F12, Ctrl+Shift+I, etc)
+  document.addEventListener('keydown', function(e) {
+    // F12
+    if (e.key === 'F12' || 
+        // Ctrl+Shift+I (Chrome/Edge)
+        (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+        // Ctrl+Shift+J (Chrome/Edge)
+        (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+        // Ctrl+Shift+C (Chrome/Edge)
+        (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+        // Ctrl+U (View Source)
+        (e.ctrlKey && e.key === 'u')) {
+      e.preventDefault();
+      
+    }
+  });
+
+  // Desabilita seleção de texto
+  document.addEventListener('selectstart', function(e) {
+    e.preventDefault();
+  });
+
+  // Desabilita cópia (Ctrl+C)
+  document.addEventListener('copy', function(e) {
+    e.preventDefault();
+    alert('Cópia de conteúdo desativada.');
+  });
+</script>
 </body>
 </html>
