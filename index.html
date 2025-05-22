@@ -3,31 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="ModPagespeed" content="off">
+  <meta name="PageSpeed" content="no-transform">
   <title>Pesquisa de Satisfação - Laboratório Bittar</title>
   <style>
+    /* ========== ESTILOS DO MODAL DE TERMOS ========== */
+    #modalTermos {
+      display: flex;
+      animation: fadeIn 0.5s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    #btnConcordar:hover {
+      background-color: #003366;
+      transform: scale(1.05);
+    }
+
+    #btnSair:hover {
+      background-color: #c82333;
+      transform: scale(1.05);
+    }
     
-	/* ========== ESTILOS DO MODAL DE TERMOS ========== */
-#modalTermos {
-  display: flex;
-  animation: fadeIn 0.5s;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-#btnConcordar:hover {
-  background-color: #003366;
-  transform: scale(1.05);
-}
-
-#btnSair:hover {
-  background-color: #c82333;
-  transform: scale(1.05);
-}
-	
-	/* ========== ESTILOS GERAIS ========== */
+    /* ========== ESTILOS GERAIS ========== */
     body {
       background-color: #004884;
       font-family: Calibri;
@@ -40,7 +41,7 @@
       display: block; 
       margin: 30px auto 5px auto; 
       width: 250px;
-	  box-shadow: 1px 1px 50px rgba(0, 0, 0, 100%);
+      box-shadow: 1px 1px 50px rgba(0, 0, 0, 100%);
     }
 
     /* ========== CONTAINER DO TÍTULO PRINCIPAL ========== */
@@ -233,46 +234,46 @@
       font-size: 22px;
       padding: 10px;
     }
-  /* ================================= RODAPÉ =================================== */
+
+    /* ================================= RODAPÉ =================================== */
     footer {
-  background-color: rgba(255, 255, 255, 0.85); 
-  color: #333;               
-  text-align: center;        
-  padding: 20px;             
-  font-size: 14px;           
-  border-top: 6px solid hsl(45, 42%, 40%); 
-  box-shadow: 1px 1px 50px rgba(0, 0, 0, 100%);
-  margin-top: 40px; 
-}
+      background-color: rgba(255, 255, 255, 0.85); 
+      color: #333;               
+      text-align: center;        
+      padding: 20px;             
+      font-size: 14px;           
+      border-top: 6px solid hsl(45, 42%, 40%); 
+      box-shadow: 1px 1px 50px rgba(0, 0, 0, 100%);
+      margin-top: 40px; 
+    }
 
-footer a {
-  color: #004884;            /* cor dos links */
-  text-decoration: none;     /* remove sublinhado */
-}
+    footer a {
+      color: #004884;            /* cor dos links */
+      text-decoration: none;     /* remove sublinhado */
+    }
 
-footer a:hover {
-  text-decoration: underline; /* sublinhado ao passar o mouse */
-}
+    footer a:hover {
+      text-decoration: underline; /* sublinhado ao passar o mouse */
+    }
 
-/* ========== BLOQUEIO DE SELEÇÃO DE TEXTO ========== */
-body {
-  -webkit-user-select: none; /* Chrome/Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+/Edge */
-  user-select: none; /* Padrão */
-}
+    /* ========== BLOQUEIO DE SELEÇÃO DE TEXTO ========== */
+    body {
+      -webkit-user-select: none; /* Chrome/Safari */
+      -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* IE10+/Edge */
+      user-select: none; /* Padrão */
+    }
 
-/* Permite seleção em campos de input e textarea */
-input, textarea {
-  -webkit-user-select: text !important;
-  -moz-user-select: text !important;
-  -ms-user-select: text !important;
-  user-select: text !important;
-}
+    /* Permite seleção em campos de input e textarea */
+    input, textarea {
+      -webkit-user-select: text !important;
+      -moz-user-select: text !important;
+      -ms-user-select: text !important;
+      user-select: text !important;
+    }
 
     /* ========== MEDIA QUERIES ========== */
-	
-	@media (max-width: 992px) {
+    @media (max-width: 992px) {
       .pesquisadesatisfação {
         font-size: 22px;
         padding: 5px 15px;
@@ -399,45 +400,41 @@ input, textarea {
       }
       
       @media (max-width: 390px) {
-	  
-	  .pesquisadesatisfação {
-        font-size: 18px;
-        border-width: 4px;
-        line-height: 1;
-        padding: 3px 10px;
-        margin: 20px auto 20px auto;
+        .pesquisadesatisfação {
+          font-size: 18px;
+          border-width: 4px;
+          line-height: 1;
+          padding: 3px 10px;
+          margin: 20px auto 20px auto;
+        }
+        
+        .rotulo {
+          font-size: 18px;
+        }
+        
+        .grupo-avaliacao {
+          font-size: 14px;
+        }
+        
+        .logo-bittar {
+          display: block;
+          width: 200px; 
+        }
+        
+        .campo-input::placeholder,
+        .campo-textarea::placeholder {
+          font-size: 15px;
+          color: #888;
+        }
       }
-	  
-	  .rotulo {
-	  font-size: 18px;
-	  }
-	  
-	  .grupo-avaliacao {
-	  font-size: 14px;
-	  }
-	  
-	  .logo-bittar {
-	  display: block;
-	  width: 200px; 
-	  }
-	  
-	.campo-input::placeholder,
-    .campo-textarea::placeholder {
-      font-size: 15px;
-      color: #888;
-    }
-	  
-	  }
-	
-	@media (max-width: 360px) {
-	
-	.grupo-avaliacao {
-	  font-size: 11px;
-	  }
-	}
-	
-	  
-	  /* Safe area para iPhones com notch */
+    
+      @media (max-width: 360px) {
+        .grupo-avaliacao {
+          font-size: 11px;
+        }
+      }
+      
+      /* Safe area para iPhones com notch */
       @supports (-webkit-touch-callout: none) {
         body {
           padding-left: env(safe-area-inset-left, 5px);
@@ -456,37 +453,36 @@ input, textarea {
   </style>
 </head>
 <body>
-  
   <!-- Modal de Termos de Uso -->
-<div id="modalTermos" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
-  <div style="background-color: #f8f9fa; padding: 30px; border-radius: 10px; max-width: 800px; width: 90%; max-height: 80vh; overflow-y: auto;">
-    <h2 style="color: #004884; text-align: center; margin-bottom: 20px;">Termos de Uso e Proteção de Dados</h2>
-    
-    <div style="margin-bottom: 20px; line-height: 1.6;">
-      <p>O Laboratório Bittar respeita sua privacidade e está comprometido com a proteção dos seus dados pessoais.</p>
+  <div id="modalTermos" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
+    <div style="background-color: #f8f9fa; padding: 30px; border-radius: 10px; max-width: 800px; width: 90%; max-height: 80vh; overflow-y: auto;">
+      <h2 style="color: #004884; text-align: center; margin-bottom: 20px;">Termos de Uso e Proteção de Dados</h2>
       
-      <p><strong>Ao participar desta pesquisa, você concorda que:</strong></p>
-      <ul style="margin-left: 20px;">
-        <li>Seus dados serão utilizados exclusivamente para fins de pesquisa de satisfação</li>
-        <li>As informações coletadas não serão compartilhadas com terceiros</li>
-        <li>Seu CPF será tratado de forma confidencial e utilizado apenas para esta pesquisa</li>
-        <li>Os resultados serão analisados de forma agregada e anônima</li>
-        <li>Você pode solicitar a exclusão de seus dados a qualquer momento</li>
-      </ul>
+      <div style="margin-bottom: 20px; line-height: 1.6;">
+        <p>O Laboratório Bittar respeita sua privacidade e está comprometido com a proteção dos seus dados pessoais.</p>
+        
+        <p><strong>Ao participar desta pesquisa, você concorda que:</strong></p>
+        <ul style="margin-left: 20px;">
+          <li>Seus dados serão utilizados exclusivamente para fins de pesquisa de satisfação</li>
+          <li>As informações coletadas não serão compartilhadas com terceiros</li>
+          <li>Seu CPF será tratado de forma confidencial e utilizado apenas para esta pesquisa</li>
+          <li>Os resultados serão analisados de forma agregada e anônima</li>
+          <li>Você pode solicitar a exclusão de seus dados a qualquer momento</li>
+        </ul>
+        
+        <p style="margin-top: 15px;">Esta pesquisa é voluntária e seus dados serão protegidos de acordo com a Lei Geral de Proteção de Dados (LGPD).</p>
+      </div>
       
-      <p style="margin-top: 15px;">Esta pesquisa é voluntária e seus dados serão protegidos de acordo com a Lei Geral de Proteção de Dados (LGPD).</p>
-    </div>
-    
-    <div style="text-align: center;">
-      <button id="btnConcordar" style="background-color: #004884; color: white; border: none; padding: 12px 30px; font-size: 18px; border-radius: 50px; cursor: pointer; margin: 10px; transition: all 0.3s;">
-        Concordo e desejo participar
-      </button>
-      <button id="btnSair" style="background-color: #dc3545; color: white; border: none; padding: 12px 30px; font-size: 18px; border-radius: 50px; cursor: pointer; margin: 10px; transition: all 0.3s;">
-        Não concordo (sair)
-      </button>
+      <div style="text-align: center;">
+        <button id="btnConcordar" style="background-color: #004884; color: white; border: none; padding: 12px 30px; font-size: 18px; border-radius: 50px; cursor: pointer; margin: 10px; transition: all 0.3s;">
+          Concordo e desejo participar
+        </button>
+        <button id="btnSair" style="background-color: #dc3545; color: white; border: none; padding: 12px 30px; font-size: 18px; border-radius: 50px; cursor: pointer; margin: 10px; transition: all 0.3s;">
+          Não concordo (sair)
+        </button>
+      </div>
     </div>
   </div>
-</div>
   
   <!-- ========== LOGO ========== -->
   <img src="imagens/bit01.png" alt="Logo Bittar" class="logo-bittar">
@@ -581,53 +577,52 @@ input, textarea {
 
   <button class="botao-enviar" onclick="enviarPesquisa()">Enviar</button>
 
+
+  <!-- ========== RODAPÉ ========== -->
   <footer style="text-align: center; padding: 20px;">
-  <p>&copy; 2025 Laboratório Bittar. Todos os direitos reservados.</p>
-  <p>Promovido por <a href="https://www.labittar.com.br/" target="_blank">Laboratório Bittar</a></p>
-  <p>WhatsApp: (21)99995-6816 <br>Central de Atendimento: (21)2621-6161</p>
+    <p>&copy; 2025 Laboratório Bittar. Todos os direitos reservados.</p>
+    <p>Promovido por <a href="https://www.labittar.com.br/" target="_blank">Laboratório Bittar</a></p>
+    <p>WhatsApp: (21)99995-6816 <br>Central de Atendimento: (21)2621-6161</p>
   </footer>
   
   <!-- ========== JAVASCRIPT ========== -->
   <script>
     // Mapeamento dos códigos de unidade
     
-	// ========== SEGURANÇA - BLOQUEIO DE FUNÇÕES ==========
-  
-  // Bloqueia menu de contexto (botão direito)
-  document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-    
-  });
-
-  // Bloqueia atalhos de teclado (F12, Ctrl+Shift+I, etc)
-  document.addEventListener('keydown', function(e) {
-    // F12
-    if (e.key === 'F12' || 
-        // Ctrl+Shift+I (Chrome/Edge)
-        (e.ctrlKey && e.shiftKey && e.key === 'I') || 
-        // Ctrl+Shift+J (Chrome/Edge)
-        (e.ctrlKey && e.shiftKey && e.key === 'J') ||
-        // Ctrl+Shift+C (Chrome/Edge)
-        (e.ctrlKey && e.shiftKey && e.key === 'C') ||
-        // Ctrl+U (View Source)
-        (e.ctrlKey && e.key === 'u')) {
+    // ========== SEGURANÇA - BLOQUEIO DE FUNÇÕES ==========
+    // Bloqueia menu de contexto (botão direito)
+    document.addEventListener('contextmenu', function(e) {
       e.preventDefault();
-      
-    }
-  });
+    });
 
-  // Desabilita seleção de texto
-  document.addEventListener('selectstart', function(e) {
-    e.preventDefault();
-  });
+    // Bloqueia atalhos de teclado (F12, Ctrl+Shift+I, etc)
+    document.addEventListener('keydown', function(e) {
+      // F12
+      if (e.key === 'F12' || 
+          // Ctrl+Shift+I (Chrome/Edge)
+          (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+          // Ctrl+Shift+J (Chrome/Edge)
+          (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+          // Ctrl+Shift+C (Chrome/Edge)
+          (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+          // Ctrl+U (View Source)
+          (e.ctrlKey && e.key === 'u')) {
+        e.preventDefault();
+      }
+    });
 
-  // Desabilita cópia (Ctrl+C)
-  document.addEventListener('copy', function(e) {
-    e.preventDefault();
-    alert('Cópia de conteúdo desativada.');
-  });
-	
-	const unidadesMap = {
+    // Desabilita seleção de texto
+    document.addEventListener('selectstart', function(e) {
+      e.preventDefault();
+    });
+
+    // Desabilita cópia (Ctrl+C)
+    document.addEventListener('copy', function(e) {
+      e.preventDefault();
+      alert('Cópia de conteúdo desativada.');
+    });
+    
+    const unidadesMap = {
       '001': 'Centro Niterói',
       '002': 'Shopping Icaraí',
       '003': 'Tavares de Macedo',
@@ -839,30 +834,29 @@ input, textarea {
       // Envia para o Google Sheets
       enviarParaGoogleSheets(dados);
     }
-	
-	// ========== CONTROLE DO MODAL DE TERMOS ==========
-document.addEventListener('DOMContentLoaded', function() {
-  // Mostra o modal ao carregar a página
-  const modalTermos = document.getElementById('modalTermos');
-  modalTermos.style.display = 'flex';
-  
-  // Esconde todo o conteúdo da pesquisa inicialmente
-  document.querySelector('body > :not(#modalTermos)').style.display = 'none';
-  
-  // Botão Concordar
-  document.getElementById('btnConcordar').addEventListener('click', function() {
-    modalTermos.style.display = 'none';
-    document.querySelector('body > :not(#modalTermos)').style.display = 'block';
-  });
-  
-  // Botão Sair
-  document.getElementById('btnSair').addEventListener('click', function() {
-    // Redireciona para página inicial ou exibe mensagem
-    alert('Obrigado pelo seu interesse. Você será redirecionado.');
-    window.location.href = 'https://www.labittar.com.br';
-  });
-});
-	
+    
+    // ========== CONTROLE DO MODAL DE TERMOS ==========
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mostra o modal ao carregar a página
+      const modalTermos = document.getElementById('modalTermos');
+      modalTermos.style.display = 'flex';
+      
+      // Esconde todo o conteúdo da pesquisa inicialmente
+      document.querySelector('body > :not(#modalTermos)').style.display = 'none';
+      
+      // Botão Concordar
+      document.getElementById('btnConcordar').addEventListener('click', function() {
+        modalTermos.style.display = 'none';
+        document.querySelector('body > :not(#modalTermos)').style.display = 'block';
+      });
+      
+      // Botão Sair
+      document.getElementById('btnSair').addEventListener('click', function() {
+        // Redireciona para página inicial ou exibe mensagem
+        alert('Obrigado pelo seu interesse. Você será redirecionado.');
+        window.location.href = 'https://www.labittar.com.br';
+      });
+    });
   </script>
 </body>
 </html>
