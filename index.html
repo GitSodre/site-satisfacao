@@ -256,21 +256,6 @@
       text-decoration: underline; /* sublinhado ao passar o mouse */
     }
 
-    /* ========== BLOQUEIO DE SELEÇÃO DE TEXTO ========== */
-    body {
-      -webkit-user-select: none; /* Chrome/Safari */
-      -moz-user-select: none; /* Firefox */
-      -ms-user-select: none; /* IE10+/Edge */
-      user-select: none; /* Padrão */
-    }
-
-    /* Permite seleção em campos de input e textarea */
-    input, textarea {
-      -webkit-user-select: text !important;
-      -moz-user-select: text !important;
-      -ms-user-select: text !important;
-      user-select: text !important;
-    }
 
     /* ========== MEDIA QUERIES ========== */
     @media (max-width: 992px) {
@@ -589,39 +574,6 @@
   <script>
     // Mapeamento dos códigos de unidade
     
-    // ========== SEGURANÇA - BLOQUEIO DE FUNÇÕES ==========
-    // Bloqueia menu de contexto (botão direito)
-    document.addEventListener('contextmenu', function(e) {
-      e.preventDefault();
-    });
-
-    // Bloqueia atalhos de teclado (F12, Ctrl+Shift+I, etc)
-    document.addEventListener('keydown', function(e) {
-      // F12
-      if (e.key === 'F12' || 
-          // Ctrl+Shift+I (Chrome/Edge)
-          (e.ctrlKey && e.shiftKey && e.key === 'I') || 
-          // Ctrl+Shift+J (Chrome/Edge)
-          (e.ctrlKey && e.shiftKey && e.key === 'J') ||
-          // Ctrl+Shift+C (Chrome/Edge)
-          (e.ctrlKey && e.shiftKey && e.key === 'C') ||
-          // Ctrl+U (View Source)
-          (e.ctrlKey && e.key === 'u')) {
-        e.preventDefault();
-      }
-    });
-
-    // Desabilita seleção de texto
-    document.addEventListener('selectstart', function(e) {
-      e.preventDefault();
-    });
-
-    // Desabilita cópia (Ctrl+C)
-    document.addEventListener('copy', function(e) {
-      e.preventDefault();
-      alert('Cópia de conteúdo desativada.');
-    });
-    
     const unidadesMap = {
       '001': 'Centro Niterói',
       '002': 'Shopping Icaraí',
@@ -842,13 +794,23 @@
       modalTermos.style.display = 'flex';
       
       // Esconde todo o conteúdo da pesquisa inicialmente
-      document.querySelector('body > :not(#modalTermos)').style.display = 'none';
+[...document.body.children].forEach(el => {
+  if (el.id !== 'modalTermos' && el.tagName !== 'SCRIPT') {
+    el.style.display = 'none';
+  }
+});
+
       
       // Botão Concordar
-      document.getElementById('btnConcordar').addEventListener('click', function() {
-        modalTermos.style.display = 'none';
-        document.querySelector('body > :not(#modalTermos)').style.display = 'block';
-      });
+      document.getElementById('btnConcordar').addEventListener('click', function () {
+  document.getElementById('modalTermos').style.display = 'none';
+  [...document.body.children].forEach(el => {
+    if (el.id !== 'modalTermos' && el.tagName !== 'SCRIPT') {
+      el.style.display = 'block';
+    }
+  });
+});
+
       
       // Botão Sair
       document.getElementById('btnSair').addEventListener('click', function() {
